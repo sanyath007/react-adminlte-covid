@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Link, Redirect, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import routes from '../../routes';
 import AppHeader from '../MainHeader';
 import AppSidebar from '../MainSidebar';
@@ -9,7 +9,7 @@ const MainLayout = () => {
   /** Get the current route from location */
   const location = useLocation();
   const currentRoute = routes.find(rt => rt.path === location.pathname);
-
+  console.log(useRouteMatch());
   return (
     <div className="wrapper">
       <AppHeader />
@@ -24,12 +24,12 @@ const MainLayout = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0 text-dark">{currentRoute ? currentRoute?.name : 'Error404'}</h1>
+                <h1 className="m-0 text-dark">{currentRoute ? currentRoute?.name : 'NotFound'}</h1>
               </div>
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item"><a href="#">Home</a></li>
-                  <li className="breadcrumb-item active">{currentRoute ? currentRoute?.name : 'Error404'}</li>
+                  <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                  <li className="breadcrumb-item active">{currentRoute ? currentRoute?.name : 'NotFound'}</li>
                 </ol>
               </div>
             </div>
@@ -40,6 +40,8 @@ const MainLayout = () => {
         <section className="content">
 
           <Switch>
+            {/* {!currentRoute && <Redirect to="/404" />} */}
+
             {routes.map((route, idx) => {
               return route.component ? (
                 <Route
@@ -47,11 +49,10 @@ const MainLayout = () => {
                   path={route.path}
                   exact={route.exact}
                   name={route.name}
-                  render={props => <route.component {...props} />}
+                  render={props => <route.component routes={route.routes} {...props} />}
                 />
               ) : (null);
             })}
-            <Redirect from="/" to="/dashboard" />
           </Switch>
 
         </section>
