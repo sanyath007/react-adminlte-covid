@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 const Charts = (props) => {
     console.log(props);
@@ -8,6 +8,7 @@ const Charts = (props) => {
             {props.routes.map((route, idx) => (
                 <Route key={idx} path={route.path} render={(props => <route.component {...props} />)} />
             ))}
+            <Redirect to="/404" />
         </Switch>
     );
 };
