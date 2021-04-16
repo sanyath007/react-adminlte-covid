@@ -40,9 +40,18 @@ const MainSidebar = () => {
             </li>
             <li className="nav-item">
               <Link to="/patients" className="nav-link">
-                <i className="nav-icon fas fa-user"></i>
+                <i className="nav-icon fas fa-users"></i>
                 <p>
                   Patients
+                  <span className="right badge badge-danger">New</span>
+                </p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/bed" className="nav-link">
+                <i className="nav-icon fas fa-bed"></i>
+                <p>
+                  เตียง
                   <span className="right badge badge-danger">New</span>
                 </p>
               </Link>
