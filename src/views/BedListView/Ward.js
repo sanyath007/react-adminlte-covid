@@ -1,30 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Bed from './Bed';
+import api from '../../api';
 
-const Ward = ({ name }) => {
+const Ward = ({ ward }) => {
+  const [beds, setBeds] = useState([]);
+
+  const fetchBeds = async () => {
+    let res = await api.get(`/beds/ward/${ward.ward_id}`);
+
+    setBeds(res.data);
+  };
+
+  useEffect(() => {
+    fetchBeds();
+  }, []);
+
   return (
-    <div class="card card-primary">
-      <div class="card-header">
-        <h3 class="card-title">{name}</h3>
+    <div className="card card-primary">
+      <div className="card-header">
+        <h3 className="card-title">{ward.ward_name}</h3>
       </div>
-      <div class="card-body">
+      <div className="card-body">
         <div className="row">
-          <div class="col-md-3 col-sm-6 col-12">
-            <Bed status="Covid Positive" />
-          </div>
-          <div class="col-md-3 col-sm-6 col-12">
-            <Bed status="ว่าง" />
-          </div>
-          <div class="col-md-3 col-sm-6 col-12">
-            <Bed status="Covid Neg" />
-          </div>
-          <div class="col-md-3 col-sm-6 col-12">
-            <Bed status="Case อื่น" />
-          </div>
+
+          {beds.map(bed => {
+            return (
+              <div className="col-md-3 col-sm-6 col-12" key={bed.bed_id}>
+                <Bed bed={bed} status="Covid Positive" />
+              </div>
+            )
+          })}
+
         </div>
       </div>
-      <div class="card-footer">
-        {/* <button type="submit" class="btn btn-primary">Submit</button> */}
+      <div className="card-footer">
+        {/* <button type="submit" className="btn btn-primary">Submit</button> */}
       </div>
     </div>
   );

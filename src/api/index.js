@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost/public_html/slim3-booking-api/public/'
+  baseURL: 'http://localhost/public_html/slim3-covid-api/public/'
 });
 
 api.interceptors.request.use(

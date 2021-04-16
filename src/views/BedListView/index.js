@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Ward from './Ward';
+import api from '../../api';
 
 const BedListView = () => {
+  const [wards, setWards] = useState([]);
+
+  const fetchWards = async () => {
+    let res = await api.get('/wards');
+
+    setWards(res.data);
+  };
+
+  useEffect(() => {
+    fetchWards();
+  }, []);
+
   return (
     <div className="container-fluid">
       <div className="row">
-        <div class="col-md-12">
+        <div className="col-md-12">
 
-          <Ward name="วอร์ดชั้น 1 (พิเศษ)" />
-
-          <Ward name="วอร์ดชั้น 10" />
-
-          <Ward name="วอร์ด ICU" />
+          {wards.map(ward => <Ward key={ward.ward_id} ward={ward} />)}
 
         </div>{/* /.col */}
 
