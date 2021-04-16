@@ -39,6 +39,15 @@ const MainSidebar = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link to="/patients" className="nav-link">
+                <i className="nav-icon fas fa-user"></i>
+                <p>
+                  Patients
+                  <span className="right badge badge-danger">New</span>
+                </p>
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/profile" className="nav-link">
                 <i className="nav-icon fas fa-user"></i>
                 <p>
