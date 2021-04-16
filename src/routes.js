@@ -1,14 +1,17 @@
 import Dashboard from './views/Dashboard';
-import Profile from './views/Profile';
 import Patients from './views/Patients';
+import PatientList from './views/Patients/PatientList';
+import NewPatient from './views/Patients/NewPatient';
+import Registrations from './views/Registrations';
+import RegistrationList from './views/Registrations/RegistrationList';
+import NewRegistration from './views/Registrations/NewRegistration';
 import BedListView from './views/BedListView';
+import Profile from './views/Profile';
 import Charts from './views/Charts';
 import ChartJS from './views/Charts/ChartJS';
 import Flot from './views/Charts/Flot';
 import Inline from './views/Charts/Inline';
 import NotFound from './views/NotFound';
-import NewPatient from './views/Patients/NewPatient';
-import PatientList from './views/Patients/PatientList';
 
 const routes = [
   { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
@@ -17,8 +20,17 @@ const routes = [
     name: 'Patients',
     component: Patients,
     routes: [
-      { path: '/', name: 'Patient List', component: PatientList },
-      { path: '/new', name: 'New Patient', component: NewPatient },
+      { path: '/', name: 'รายชื่อผู้ป่วย', component: PatientList },
+      { path: '/new', name: 'เพิ่มผู้ป่วย', component: NewPatient },
+    ]
+  },
+  {
+    path: '/registrations',
+    name: 'Registrations',
+    component: Registrations,
+    routes: [
+      { path: '/', name: 'ทะเบียนผู้ป่วย', component: RegistrationList },
+      { path: '/new', name: 'ลงทะเบียนผู้ป่วย', component: NewRegistration },
     ]
   },
   { path: '/beds', name: 'Beds', component: BedListView },
