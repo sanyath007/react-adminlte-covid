@@ -7,10 +7,20 @@ import ChartJS from './views/Charts/ChartJS';
 import Flot from './views/Charts/Flot';
 import Inline from './views/Charts/Inline';
 import NotFound from './views/NotFound';
+import NewPatient from './views/Patients/NewPatient';
+import PatientList from './views/Patients/PatientList';
 
 const routes = [
   { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
-  { path: '/patients', name: 'Patients', component: Patients },
+  {
+    path: '/patients',
+    name: 'Patients',
+    component: Patients,
+    routes: [
+      { path: '/', name: 'Patient List', component: PatientList },
+      { path: '/new', name: 'New Patient', component: NewPatient },
+    ]
+  },
   { path: '/beds', name: 'Beds', component: BedListView },
   { path: '/profile', exact: true, name: 'Profile', component: Profile },
   {
