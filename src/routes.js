@@ -1,6 +1,7 @@
 import Dashboard from './views/Dashboard';
 import Profile from './views/Profile';
 import Patients from './views/Patients';
+import BedListView from './views/BedListView';
 import Charts from './views/Charts';
 import ChartJS from './views/Charts/ChartJS';
 import Flot from './views/Charts/Flot';
@@ -9,8 +10,9 @@ import NotFound from './views/NotFound';
 
 const routes = [
   { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
-  { path: '/profile', exact: true, name: 'Profile', component: Profile },
   { path: '/patients', name: 'Patients', component: Patients },
+  { path: '/beds', name: 'Beds', component: BedListView },
+  { path: '/profile', exact: true, name: 'Profile', component: Profile },
   {
     path: '/charts', 
     name: 'Charts', 

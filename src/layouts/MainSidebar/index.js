@@ -48,7 +48,7 @@ const MainSidebar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/bed" className="nav-link">
+              <Link to="/beds" className="nav-link">
                 <i className="nav-icon fas fa-bed"></i>
                 <p>
                   เตียง
