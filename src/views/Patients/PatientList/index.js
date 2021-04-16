@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 import api from '../../../api';
 
 const PatientList = () => {
-  const [patients, setPatients] = useState([]);
+  const [registrations, setRegistrations] = useState([]);
 
-  const fetchPatients = async () => {
+  const fetchRegistrations = async () => {
     let res = await api.get(`/patients`);
 
-    setPatients(res.data.items);
+    setRegistrations(res.data.items);
   };
 
   useEffect(() => {
-    fetchPatients();
+    fetchRegistrations();
   }, []);
 
   return (
@@ -43,29 +44,38 @@ const PatientList = () => {
               <th style={{ width: '6%', textAlign: 'center' }}>Dx</th>
               {/* <th>อาการโดยรวม</th> */}
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ D/C</th>
-              <th style={{ width: '6%', textAlign: 'center' }}>จน.วันนอน</th>
+              {/* <th style={{ width: '6%', textAlign: 'center' }}>จน.วันนอน</th> */}
               {/* <th>หมายเหตุ</th> */}
               <th style={{ width: '10%', textAlign: 'center' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {patients.map((patient, index) => {
+            {registrations.map((reg, index) => {
               return (
-                <tr key={patient.hn}>
+                <tr key={reg.hn}>
                   <td style={{ textAlign: 'center' }}>{index + 1}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.code}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.hn}</td>
-                  <td style={{ fontSize: '14px' }}>{patient.name}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.sex ? 'ชาย' : 'หญิง'}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.age_y}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.reg_date}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.lab_date}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.lab_result}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.dx}</td>
-                  {/* <td style={{ fontSize: '14px' }}>{patient.symptom}</td> */}
-                  <td style={{ textAlign: 'center' }}>{patient.dch_date}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.adm_day}</td>
-                  {/* <td>{patient.remark}</td> */}
+                  <td style={{ textAlign: 'center' }}>{reg.code}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.hn}</td>
+                  <td style={{ fontSize: '14px' }}>{reg.patient.name}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.patient.sex ? 'ชาย' : 'หญิง'}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.patient.age_y}</td>
+                  <td style={{ textAlign: 'center' }}>{moment(reg.reg_date).format('DD/MM/YYYY')}</td>
+                  <td style={{ textAlign: 'center' }}>{moment(reg.lab_date).format('DD/MM/YYYY')}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.lab_result}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.dx}</td>
+                  {/* <td style={{ fontSize: '14px' }}>{reg.symptom}</td> */}
+                  <td style={{ textAlign: 'center' }}>
+                    {reg.dch_date
+                      ? moment(reg.dch_date).format('DD/MM/YYYY')
+                      : (
+                        <Link className="btn btn-sm bg-danger" to="/" title="จำหน่าย">
+                          <i className="fas fa-sign-out-alt"></i>
+                        </Link>
+                      )
+                    }
+                  </td>
+                  {/* <td style={{ textAlign: 'center' }}>{reg.adm_day}</td> */}
+                  {/* <td>{reg.remark}</td> */}
                   <td style={{ textAlign: 'center' }}>
                     <Link className="btn btn-sm bg-info" to="/">
                       <i className="fas fa-search"></i>
