@@ -1,18 +1,19 @@
 import React from 'react';
-import Form from '../Form';
+import FormPatient from '../Form';
 
 const NewPatient = () => {
+  const handleSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">Striped Full Width Table</h3>
+        <h3 className="card-title">เพิ่มข้อมูลผู้ป่วย</h3>
       </div>
-      <div className="card-body p-0">
+      <div className="card-body">
 
-        <Form />
-
-      </div>
-      <div className="card-footer clearfix">
+        <FormPatient handleSubmit={handleSubmit} />
 
       </div>
     </div>

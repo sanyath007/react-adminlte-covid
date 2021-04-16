@@ -64,7 +64,7 @@ const PatientList = () => {
                   <td style={{ textAlign: 'center' }}>{patient.dx}</td>
                   {/* <td style={{ fontSize: '14px' }}>{patient.symptom}</td> */}
                   <td style={{ textAlign: 'center' }}>{patient.dch_date}</td>
-                  <td style={{ textAlign: 'center' }}>{patient.adm_date}</td>
+                  <td style={{ textAlign: 'center' }}>{patient.adm_day}</td>
                   {/* <td>{patient.remark}</td> */}
                   <td style={{ textAlign: 'center' }}>
                     <Link className="btn btn-sm bg-info" to="/">

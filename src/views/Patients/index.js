@@ -11,7 +11,6 @@ const Patients = (props) => {
 
           <Switch>
             {props.routes.map((route, idx) => {
-              console.log(`${url}${route.path}`);
               return (
                 <Route key={idx} exact path={`${url}${route.path}`} render={(props => <route.component {...props} />)} />
               )
