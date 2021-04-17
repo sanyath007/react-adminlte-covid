@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const Register = () => {
+const Signup = () => {
   return (
     <div className="register-box">
       <div className="register-logo">
@@ -78,4 +78,4 @@ const Register = () => {
   );
 };
 
-export default Register
+export default Signup;
