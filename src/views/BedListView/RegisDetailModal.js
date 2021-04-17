@@ -1,23 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import moment from 'moment';
 import { calcAge } from '../../utils';
 
 function RegisDetailModal({ isOpen, hideModal, regisData }) {
-  const [ips, setIps] = useState([]);
-
-  // const fetchIpAll = async () => {
-  //   let res = await api.get('/ips');
-
-  //   setIps(res.data.items);
-  // };
-
-  // useEffect(() => {
-  //   fetchIpAll();
-  // }, []);
-  console.log(regisData);
-
   return (
     <Modal
       show={isOpen}
@@ -31,7 +18,7 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
           <tbody>
             <tr>
               <th style={{ width: '15%' }}>AN</th>
-              <td>{regisData?.an}</td>
+              <td>{regisData?.an || ''}</td>
               <th style={{ width: '15%' }}>HN</th>
               <td>{regisData?.hn}</td>
             </tr>
@@ -40,7 +27,7 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
               <td>{regisData?.patient?.name}</td>
               <th>อายุ (ปี)</th>
               <td>
-                {calcAge(regisData?.patient?.birthdate)}
+                {calcAge(regisData?.patient?.birthdate) || ''}
               </td>
             </tr>
             <tr>
@@ -69,7 +56,7 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
         </table>
 
         {regisData?.remark && (
-          <div class="alert alert-success" role="alert">
+          <div className="alert alert-success" role="alert">
             <h5>NOTE :</h5>
             <span>{regisData?.remark}</span>
           </div>

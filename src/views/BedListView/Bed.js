@@ -65,7 +65,7 @@ const Bed = ({ bed }) => {
               className="btn btn-sm text-primary float-right"
               onClick={(e) => onAdmit(e)}
             >
-              <i className="fas fa-hospital-user"></i>
+              <i className="fas fa-hospital-user mr-1"></i>
               Admit
             </a>
           )}
