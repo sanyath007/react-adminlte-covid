@@ -1,9 +1,13 @@
 import React from 'react';
 import FormPatient from '../Form';
+import api from '../../../api';
 
 const NewPatient = () => {
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     console.log(data);
+
+    let res = await api.post('/patients', data);
+    console.log(res);
   };
 
   return (
