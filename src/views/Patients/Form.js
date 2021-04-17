@@ -6,15 +6,31 @@ import * as Yup from 'yup';
 import moment from "moment";
 import PatientModal from './PatientModal';
 import { calcAge } from '../../utils';
+import api from '../../api';
 
 const FormPatient = ({ patient, handleSubmit }) => {
   const patientSchema = Yup.object().shape({});
 
+  const [wards, setWards] = useState([]);
+  const [beds, setBeds] = useState([]);
   {/* // TODO: function handle when search patient btn have been clicked and show modal popup */}
   const [openModal, setOpenModal] = useState(false);
 
   const onHideModal = () => {
     setOpenModal(false);
+  };
+
+  const mapHWardToWard = (ward) => {
+    switch (ward) {
+      case '00':
+        return '2';    
+      case '05':
+        return '3'    
+      case '06':
+        return '1'
+      default:
+        break;
+    }
   };
 
   const handleModalSelectedData = (ip, setFieldValue) => {
@@ -30,11 +46,32 @@ const FormPatient = ({ patient, handleSubmit }) => {
     /** Admit info */
     setFieldValue('an', ip.an);
     setFieldValue('reg_date', ip.regdate);
+    /** Set ward data and fetch bed by ward */
+    let ward = mapHWardToWard(ip.ward);
+    setFieldValue('ward', ward);
+    fetchBeds(ward);
+  };
+
+  const fetchWards = async () => {
+    let res = await api.get('/wards');
+
+    setWards(res.data);
+  };
+
+  const fetchBeds = async (ward) => {
+    let res = await api.get(`/beds/ward/${ward}`);
+    console.log(res);
+
+    setBeds(res.data);
   };
 
   const onSubmit = (values, props) => {
     handleSubmit(values);
   };
+
+  useEffect(() => {
+    fetchWards();
+  });
 
   return (
     <Formik
@@ -42,14 +79,16 @@ const FormPatient = ({ patient, handleSubmit }) => {
         id: patient ? patient.id : '',
         code: patient ? patient.code : '',
         hn: patient ? patient.hn : '',
-        an: patient ? patient.an : '',
         cid: patient ? patient.cid : '',
         name: patient ? patient.name : '',
         sex: patient ? patient.sex : '',
         age_y: patient ? patient.age_y : 0,
         birthdate: patient ? patient.birthdate : moment().format('YYYY-MM-DD'),
         tel: patient ? patient.tel : '',
+        an: patient ? patient.an : '',
         reg_date: patient ? patient.reg_date : moment().format('YYYY-MM-DD'),
+        ward: patient ? patient.ward : '',
+        bed: patient ? patient.bed : '',
         lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
         lab_result: patient ? patient.lab_result : '',
         dx: patient ? patient.dx : '',
@@ -260,9 +299,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">วอร์ด</span>
                         </div>
-                        <select name="ward" className="form-control">
+                        <BSForm.Control
+                          as="select"
+                          name="ward"
+                          value={formik.values.ward}
+                          onChange={formik.handleChange}
+                          onChange={(e) => fetchBeds(e.target.value)}
+                        >
                           <option value="">-- เลือก --</option>
-                        </select>
+                          {wards && wards.map(ward => {
+                            return <option key={ward.ward_id} value={ward.ward_id}>{ward.ward_name}</option>
+                          })}
+                        </BSForm.Control>
                       </div>
                     </div>
                   </div>
@@ -273,9 +321,12 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">เตียง</span>
                         </div>
-                        <select name="ward" className="form-control">
+                        <BSForm.Control as="select" name="bed" onChange={formik.handleChange}>
                           <option value="">-- เลือก --</option>
-                        </select>
+                          {beds && beds.map(bed => {
+                            return <option key={bed.bed_id} value={bed.bed_id}>{bed.bed_name}</option>
+                          })}
+                        </BSForm.Control>
                       </div>
                     </div>
                   </div>
