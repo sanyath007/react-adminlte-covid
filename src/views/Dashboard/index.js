@@ -509,7 +509,7 @@ const Dashboard = () => {
                     data-readonly="true"
                     data-width="60"
                     data-height="60"
-                    data-fgColor="#39CCCC"
+                    data-fgcolor="#39CCCC"
                     value="20"
                     onChange={(e) => console.log(e)}
                   />
@@ -523,7 +523,7 @@ const Dashboard = () => {
                     data-readonly="true"
                     data-width="60"
                     data-height="60"
-                    data-fgColor="#39CCCC"
+                    data-fgcolor="#39CCCC"
                     value="50"
                     onChange={(e) => console.log(e)}
                   />
@@ -537,7 +537,7 @@ const Dashboard = () => {
                     data-readonly="true"
                     data-width="60"
                     data-height="60"
-                    data-fgColor="#39CCCC"
+                    data-fgcolor="#39CCCC"
                     value="30"
                     onChange={(e) => console.log(e)}
                   />
