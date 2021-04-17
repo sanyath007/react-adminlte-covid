@@ -8,6 +8,25 @@ import PatientModal from './PatientModal';
 import { calcAge } from '../../utils';
 import api from '../../api';
 
+const regFroms = [
+  { id: 1, name: 'ER' },
+  { id: 2, name: 'OPD' },
+  { id: 3, name: 'รพ.มหาราช' },
+  { id: 4, name: 'สสจ.นม.' },
+  { id: 5, name: 'คร.Swap' },
+  { id: 6, name: 'ARI คลินิก' },
+  { id: 7, name: 'PUI คลินิก' },
+  { id: 9, name: 'อื่นๆ' },
+];
+
+const regStates = [
+  { id: 0, name: 'รอผล' },
+  { id: 1, name: 'Covid Pos' },
+  { id: 2, name: 'Covid Neg' },
+  { id: 3, name: 'PUI' },
+  { id: 4, name: 'สงสัย' },
+];
+
 const FormPatient = ({ patient, handleSubmit }) => {
   const patientSchema = Yup.object().shape({
     hn: Yup.string().required('กรุณาระบุ HN ผู้ป่วยก่อน !!!'),
@@ -484,6 +503,56 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="Code"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">รับจาก</span>
+                        </div>
+                        <BsForm.Control
+                          as="select"
+                          name="reg_from"
+                          onChange={formik.handleChange}
+                          isInvalid={formik.errors.reg_from && formik.touched.reg_from}
+                        >
+                          <option value="">-- เลือก --</option>
+                          {regFroms && regFroms.map(from => {
+                            return <option key={from.id} value={from.id}>{from.name}</option>
+                          })}
+                        </BsForm.Control>
+                        <ErrorMessage
+                          name="reg_from"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-6">
+                    <div className="form-group">
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">สถานะ</span>
+                        </div>
+                        <BsForm.Control
+                          as="select"
+                          name="reg_state"
+                          onChange={formik.handleChange}
+                          isInvalid={formik.errors.reg_state && formik.touched.reg_state}
+                        >
+                          <option value="">-- เลือก --</option>
+                          {regStates && regStates.map(state => {
+                            return <option key={state.id} value={state.id}>{state.name}</option>
+                          })}
+                        </BsForm.Control>
+                        <ErrorMessage
+                          name="reg_state"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
