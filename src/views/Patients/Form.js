@@ -62,7 +62,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     /** Set ward data and fetch bed by ward */
     let ward = mapHWardToWard(ip.ward);
     setFieldValue('ward', ward);
-    fetchBeds(ward);
+    fetchBedsByWard(ward);
   };
 
   const fetchWards = async () => {
@@ -71,8 +71,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
     setWards(res.data);
   };
 
-  const fetchBeds = async (ward) => {
-    let res = await api.get(`/beds/ward/${ward}`);
+  const fetchBedsByWard = async (ward) => {
+    let res = await api.get(`/beds/ward/${ward}/1`);
 
     setBeds(res.data);
   };
@@ -367,7 +367,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           name="ward"
                           value={formik.values.ward}
                           onChange={formik.handleChange}
-                          onChange={(e) => fetchBeds(e.target.value)}
+                          onChange={(e) => fetchBedsByWard(e.target.value)}
                           isInvalid={formik.errors.ward && formik.touched.ward}
                         >
                           <option value="">-- เลือก --</option>
