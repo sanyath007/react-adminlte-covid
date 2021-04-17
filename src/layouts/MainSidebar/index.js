@@ -30,7 +30,7 @@ const MainSidebar = () => {
         {/* Sidebar Menu */}
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li className="nav-item has-treeview menu-open">
+            <li className="nav-item has-treeview">
               <Link to="/" className="nav-link">
                 <i className="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -54,7 +54,7 @@ const MainSidebar = () => {
                 </p>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/profile" className="nav-link">
                 <i className="nav-icon fas fa-user"></i>
                 <p>
@@ -62,8 +62,8 @@ const MainSidebar = () => {
                   <span className="right badge badge-danger">New</span>
                 </p>
               </Link>
-            </li>
-            <li className="nav-item has-treeview">
+            </li> */}
+            {/* <li className="nav-item has-treeview">
               <a href="#" className="nav-link">
                 <i className="nav-icon fas fa-chart-pie"></i>
                 <p>
@@ -91,7 +91,7 @@ const MainSidebar = () => {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </section>
