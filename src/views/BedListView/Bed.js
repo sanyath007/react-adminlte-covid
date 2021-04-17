@@ -20,6 +20,16 @@ const Bed = ({ bed }) => {
     setStatus(regStates.find(state => state.id.toString() === res.data.used?.reg_state));
   };
 
+  const onDischarge = async (e) => {
+    e.preventDefault();
+    // TODO: to discharge patient from bed when D/C btn is clicked
+  };
+
+  const onAdmit = async (e) => {
+    e.preventDefault();
+    // TODO: to admit patient without register from bed when admit btn is clicked
+  };
+
   useEffect(() => {
     fetchBedUsed();
   }, [bed]);
@@ -44,14 +54,22 @@ const Bed = ({ bed }) => {
         </span>
         <div style={{ flex: '1', justifyContent: 'space-between', marginTop: '5px' }}>
           {bed?.bed_status === '0' && (
-            <a href="#" className="btn btn-sm text-primary float-right">
+            <a
+              href="#"
+              className="btn btn-sm text-primary float-right"
+              onClick={(e) => onAdmit(e)}
+            >
               <i class="fas fa-hospital-user"></i>
               Admit
             </a>
           )}
           
           {bed?.bed_status === '1' && (
-            <a href="#" className="btn btn-sm text-danger float-right">
+            <a
+              href="#"
+              className="btn btn-sm text-danger float-right"
+              onClick={(e) => onDischarge(e)}
+            >
               D/C
               <i class="fas fa-sign-out-alt ml-1"></i>
             </a>
