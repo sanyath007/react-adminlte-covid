@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
+import RegisDetailModal from './RegisDetailModal';
 
 const regStates = [
   { id: 0, name: 'รอผล' },
@@ -12,6 +13,11 @@ const regStates = [
 const Bed = ({ bed }) => {
   const [status, setStatus] = useState(null);
   const [used, setUsed] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+
+  const onHideModal = () => {
+    setOpenModal(false);
+  };
 
   const fetchBedUsed = async () => {
     let res = await api.get(`/beds/${bed?.bed_id}/used`);
@@ -46,8 +52,8 @@ const Bed = ({ bed }) => {
         <span className="info-box-number">
           {bed?.bed_status === '1' 
             ? (
-              <a href="#" className="text-info">
-                {status?.name} <i class="fas fa-comment-medical"></i>
+              <a href="#" className="text-info" onClick={() => setOpenModal(true)}>
+                {status?.name} <i className="fas fa-comment-medical"></i>
               </a>
             ) : 'ว่าง'
           }
@@ -59,7 +65,7 @@ const Bed = ({ bed }) => {
               className="btn btn-sm text-primary float-right"
               onClick={(e) => onAdmit(e)}
             >
-              <i class="fas fa-hospital-user"></i>
+              <i className="fas fa-hospital-user"></i>
               Admit
             </a>
           )}
@@ -71,11 +77,17 @@ const Bed = ({ bed }) => {
               onClick={(e) => onDischarge(e)}
             >
               D/C
-              <i class="fas fa-sign-out-alt ml-1"></i>
+              <i className="fas fa-sign-out-alt ml-1"></i>
             </a>
           )}
         </div>
       </div>
+
+      <RegisDetailModal
+        isOpen={openModal}
+        hideModal={onHideModal}
+        regisData={used}
+      />
     </div>
   );
 };
