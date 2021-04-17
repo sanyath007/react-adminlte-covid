@@ -1,31 +1,40 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import { Form as BSForm } from 'react-bootstrap';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import moment from "moment";
 import PatientModal from './PatientModal';
+import { calcAge } from '../../utils';
 
 const FormPatient = ({ patient, handleSubmit }) => {
-  const [openModal, setOpenModal] = useState(false);
-  const [ip, setIp] = useState(null);
-
   const patientSchema = Yup.object().shape({});
 
-  const handleAnOnFocus = (e) => {
-    e.preventDefault();
+  {/* // TODO: function handle when search patient btn have been clicked and show modal popup */}
+  const [openModal, setOpenModal] = useState(false);
 
-    setOpenModal(true);
+  const onHideModal = () => {
+    setOpenModal(false);
   };
 
-  const handleOnHideModal = () => {
-    setOpenModal(false);
+  const handleModalSelectedData = (ip, setFieldValue) => {
+    console.log(ip);
+    /** Patient info */
+    setFieldValue('hn', ip.hn);
+    setFieldValue('cid', ip.hpatient?.cid);
+    setFieldValue('name', `${ip.hpatient?.pname}${ip.hpatient?.fname} ${ip.hpatient?.lname}`);
+    setFieldValue('birthdate', ip.hpatient?.birthday);
+    setFieldValue('age_y', calcAge(ip.hpatient?.birthday));
+    setFieldValue('sex', ip.hpatient?.sex);
+    setFieldValue('tel', ip.hpatient?.hometel);
+    /** Admit info */
+    setFieldValue('an', ip.an);
+    setFieldValue('reg_date', ip.regdate);
   };
 
   const onSubmit = (values, props) => {
     handleSubmit(values);
   };
-
-  {/* // TODO: function handle when search patient btn have been clicked and show modal popup */}
 
   return (
     <Formik
@@ -58,8 +67,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
 
             <PatientModal
               isOpen={openModal}
-              hideModal={handleOnHideModal}
-              onSelected={(an) => formik.setFieldValue('an', an)}
+              hideModal={onHideModal}
+              onSelected={(ip) => handleModalSelectedData(ip, formik.setFieldValue)}
             />
 
             <div className="card">
@@ -86,7 +95,10 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           <a
                             href="#"
                             className="btn btn-primary"
-                            onClick={() => setOpenModal(true)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setOpenModal(true)
+                            }}
                           >
                             <i className="fas fa-search"></i>
                           </a>

@@ -7,9 +7,9 @@ import {
   Modal,
   Pagination
 } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import moment from 'moment';
 import api from '../../api';
+import { calcAge } from '../../utils';
 
 function PatientModal({ isOpen, hideModal, onSelected }) {
   const [ips, setIps] = useState([]);
@@ -17,27 +17,25 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
 
   const fetchIpAll = async () => {
     let res = await api.get('/ips');
-    console.log(res);
+
+    setIps(res.data.items);
+    setPager(res.data.pager);
   };
 
   const fetchIpAllWithPage = async (url) => {
+    let res = await api.get(url);
 
+    setIps(res.data.items);
+    setPager(res.data.pager);
+  };
+
+  const handlePaginationClick = (url) => {
+    fetchIpAllWithPage(url);
   };
 
   useEffect(() => {
     fetchIpAll();
   }, []);
-
-  const handlePageItemClick = (url) => {
-    // dispatch(ipActions.fetchIpAllWithPage(url));
-  };
-
-  const calcAge = (birthday) => {
-    const now = moment();
-    const birth = moment(birthday, 'YYYY');
-
-    return now.diff(birth, 'years');
-  };
 
   return (
     <Modal
@@ -64,20 +62,20 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
           <tbody>
             {ips && ips.map((ip, index) => (
               <tr key={ip.an}>
-                <td style={{ textAlign: 'center' }}>{pager.from + index}</td>
+                <td style={{ textAlign: 'center' }}>{pager?.from + index}</td>
                 <td style={{ textAlign: 'center' }}>{ip.an}</td>
                 <td style={{ textAlign: 'center' }}>{ip.hn}</td>
-                <td>{`${ip.patient?.pname}${ip.patient?.fname} ${ip.patient?.lname}`}</td>
+                <td>{`${ip.hpatient?.pname}${ip.hpatient?.fname} ${ip.hpatient?.lname}`}</td>
                 <td style={{ textAlign: 'center' }}>
-                  {calcAge(ip.patient?.birthday)}
+                  {calcAge(ip.hpatient?.birthday)}
                 </td>
                 <td style={{ textAlign: 'center' }}>
                   {moment(ip.regdate).format('DD/MM/YYYY')}
                 </td>
-                <td>{ip.ward?.name}</td>
+                <td>{ip.hward?.name}</td>
                 <td style={{ textAlign: 'center' }}>
                   <Button onClick={() => {
-                    onSelected(`${ip.an}-${ip.patient?.pname}${ip.patient?.fname} ${ip.patient?.lname}`);
+                    onSelected(ip);
                     hideModal();
                   }}
                   >
@@ -98,19 +96,19 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
           <Col>
             <Pagination className="float-right">
               <Pagination.First
-                onClick={() => handlePageItemClick(pager?.first_page_url)}
+                onClick={() => handlePaginationClick(pager?.first_page_url)}
                 disabled={pager?.current_page === 1}
               />
               <Pagination.Prev
-                onClick={() => handlePageItemClick(pager?.prev_page_url)}
+                onClick={() => handlePaginationClick(pager?.prev_page_url)}
                 disabled={pager?.current_page === 1}
               />
               <Pagination.Next
-                onClick={() => handlePageItemClick(pager?.next_page_url)}
+                onClick={() => handlePaginationClick(pager?.next_page_url)}
                 disabled={pager?.current_page === pager?.last_page}
               />
               <Pagination.Last
-                onClick={() => handlePageItemClick(pager?.last_page_url)}
+                onClick={() => handlePaginationClick(pager?.last_page_url)}
                 disabled={pager?.current_page === pager?.last_page}
               />
             </Pagination>
