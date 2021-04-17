@@ -13,7 +13,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
 
   const [wards, setWards] = useState([]);
   const [beds, setBeds] = useState([]);
-  {/* // TODO: function handle when search patient btn have been clicked and show modal popup */}
   const [openModal, setOpenModal] = useState(false);
 
   const onHideModal = () => {
@@ -34,7 +33,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
   };
 
   const handleModalSelectedData = (ip, setFieldValue) => {
-    console.log(ip);
     /** Patient info */
     setFieldValue('hn', ip.hn);
     setFieldValue('cid', ip.hpatient?.cid);
@@ -60,7 +58,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
 
   const fetchBeds = async (ward) => {
     let res = await api.get(`/beds/ward/${ward}`);
-    console.log(res);
 
     setBeds(res.data);
   };
@@ -130,7 +127,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           placeholder="HN"
                         />
                         <div className="input-group-append">
-                          {/* // TODO: handle on search patient btn have been clicked */}
                           <a
                             href="#"
                             className="btn btn-primary"
@@ -188,11 +184,16 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">เพศ</span>
                         </div>
-                        <select name="ward" className="form-control select2">
+                        <BSForm.Control
+                          as="select"
+                          name="sex"
+                          value={formik.values.sex}
+                          onChange={formik.handleChange}
+                        >
                           <option value="">-- เลือก --</option>
                           <option value="1">ชาย</option>
                           <option value="2">หญิง</option>
-                        </select>
+                        </BSForm.Control>
                       </div>
                     </div>
                   </div>
