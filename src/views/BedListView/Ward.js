@@ -5,14 +5,14 @@ import api from '../../api';
 const Ward = ({ ward }) => {
   const [beds, setBeds] = useState([]);
 
-  const fetchBeds = async () => {
-    let res = await api.get(`/beds/ward/${ward.ward_id}`);
+  const fetchBedsByWard = async () => {
+    let res = await api.get(`/beds/ward/${ward.ward_id}/0`);
 
     setBeds(res.data);
   };
 
   useEffect(() => {
-    fetchBeds();
+    fetchBedsByWard();
   }, []);
 
   return (

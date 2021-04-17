@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import React from 'react';
 
 const Bed = ({ bed, status }) => {
-  // const [beds, setBeds] = useState([]);
-
-  // const fetchBeds = async () => {
-  //   let res = await api.get(`/beds/ward/${ward.ward_id}`);
-
-  //   setBeds(res.data);
-  // };
-
-  // useEffect(() => {
-  //   fetchBeds();
-  // }, []);
-
   return (
     <div className="info-box">
-      <span className="info-box-icon bg-success"><i className="far fa-user"></i></span>
+      {bed?.bed_status === '1' 
+        ? <span className="info-box-icon bg-danger"><i className="far fa-user"></i></span>
+        : <span className="info-box-icon bg-success"><i className="far fa-user"></i></span>
+      }
 
       <div className="info-box-content">
         <span className="info-box-text">{bed?.bed_name}</span>
