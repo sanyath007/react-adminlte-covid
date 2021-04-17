@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { Form as BSForm } from 'react-bootstrap';
+import { Form as BsForm } from 'react-bootstrap';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import moment from "moment";
@@ -9,7 +9,22 @@ import { calcAge } from '../../utils';
 import api from '../../api';
 
 const FormPatient = ({ patient, handleSubmit }) => {
-  const patientSchema = Yup.object().shape({});
+  const patientSchema = Yup.object().shape({
+    hn: Yup.string().required('กรุณาระบุ HN ผู้ป่วยก่อน !!!'),
+    name: Yup.string().required('กรุณาระบุชื่อ-สกุลผู้ป่วยก่อน !!!'),
+    cid: Yup.string().required('กรุณาระบุเลขบัตรประชาชนผู้ป่วยก่อน !!!'),
+    sex: Yup.string().required('กรุณาระบุเพศผู้ป่วยก่อน !!!'),
+    birthdate: Yup.string().required('กรุณาระบุวันที่เกิดผู้ป่วยก่อน !!!'),
+    age_y: Yup.string().required('กรุณาระบุอายุผู้ป่วยก่อน !!!'),
+    tel: Yup.string().required('กรุณาระบุเบอร์โทรศัพท์ผู้ป่วยก่อน !!!'),
+
+    an: Yup.string().required('กรุณาระบุ AN !!!'),
+    reg_date: Yup.string().required('กรุณาระบุวันที่ Admit !!!'),
+    bed: Yup.string().required('กรุณาระบุเตียงก่อน !!!'),
+    lab_result: Yup.string().required('กรุณาระบุผล Lab ก่อน !!!'),
+    dx: Yup.string().required('กรุณาระบุผลการวินิจฉัย (Diag) ก่อน !!!'),
+    symptom: Yup.string().required('กรุณาระบุอาการก่อน !!!'),
+  });
 
   const [wards, setWards] = useState([]);
   const [beds, setBeds] = useState([]);
@@ -79,7 +94,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
         cid: patient ? patient.cid : '',
         name: patient ? patient.name : '',
         sex: patient ? patient.sex : '',
-        age_y: patient ? patient.age_y : 0,
+        age_y: patient ? patient.age_y : '',
         birthdate: patient ? patient.birthdate : moment().format('YYYY-MM-DD'),
         tel: patient ? patient.tel : '',
         an: patient ? patient.an : '',
@@ -92,6 +107,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
         symptom: patient ? patient.symptom : '',
         dch_date: patient ? patient.dch_date : '',
         adm_day: patient ? patient.adm_day : '',
+        reg_from: patient ? patient.reg_from : '',
+        reg_state: patient ? patient.reg_state : '',
         remark: patient ? patient.remark : ''
       }}
       validationSchema={patientSchema}
@@ -118,14 +135,15 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">HN</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="hn"
                           value={formik.values.hn}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="HN"
-                        />
+                          isInvalid={formik.errors.hn && formik.touched.hn}
+                        />                        
                         <div className="input-group-append">
                           <a
                             href="#"
@@ -138,6 +156,10 @@ const FormPatient = ({ patient, handleSubmit }) => {
                             <i className="fas fa-search"></i>
                           </a>
                         </div>
+                        <ErrorMessage
+                          name="hn"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
                       </div>{/* /.input-group */}
                     </div>
                   </div>
@@ -148,13 +170,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">ชื่อ-สกุล</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="name"
                           value={formik.values.name}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="ชื่อ-สกุล"
+                          isInvalid={formik.errors.name && formik.touched.name}
+                        />
+                        <ErrorMessage
+                          name="name"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -166,13 +193,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">CID</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="cid"
                           value={formik.values.cid}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="CID"
+                          isInvalid={formik.errors.cid && formik.touched.cid}
+                        />
+                        <ErrorMessage
+                          name="cid"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -184,16 +216,21 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">เพศ</span>
                         </div>
-                        <BSForm.Control
+                        <BsForm.Control
                           as="select"
                           name="sex"
                           value={formik.values.sex}
                           onChange={formik.handleChange}
+                          isInvalid={formik.errors.sex && formik.touched.sex}
                         >
                           <option value="">-- เลือก --</option>
                           <option value="1">ชาย</option>
                           <option value="2">หญิง</option>
-                        </BSForm.Control>
+                        </BsForm.Control>
+                        <ErrorMessage
+                          name="sex"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
                       </div>
                     </div>
                   </div>
@@ -204,12 +241,17 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">วันเกิด</span>
                         </div>
-                        <BSForm.Control
+                        <BsForm.Control
                           type="date"
                           name="birthdate"
                           value={formik.values.birthdate}
                           onChange={(e) => formik.setFieldValue('birthdate', e.target.value)}
                           placeholder="วันเกิด"
+                          isInvalid={formik.errors.birthdate && formik.touched.birthdate}
+                        />
+                        <ErrorMessage
+                          name="birthdate"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -221,13 +263,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">อายุ</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="age_y"
                           value={formik.values.age_y}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="อายุ"
+                          isInvalid={formik.errors.age_y && formik.touched.age_y}
+                        />
+                        <ErrorMessage
+                          name="age_y"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -239,13 +286,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">เบอร์ติดต่อ</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="tel"
                           value={formik.values.tel}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="เบอร์ติดต่อ"
+                          isInvalid={formik.errors.tel && formik.touched.tel}
+                        />
+                        <ErrorMessage
+                          name="tel"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -265,13 +317,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">AN</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="an"
                           value={formik.values.an}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="AN"
+                          isInvalid={formik.errors.an && formik.touched.an}
+                        />
+                        <ErrorMessage
+                          name="an"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -283,12 +340,17 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">วัน Admit</span>
                         </div>
-                        <BSForm.Control
+                        <BsForm.Control
                           type="date"
                           name="reg_date"
                           value={formik.values.reg_date}
                           onChange={(e) => formik.setFieldValue('reg_date', e.target.value)}
-                          placeholder="วันเกิด"
+                          placeholder="วัน Admit"
+                          isInvalid={formik.errors.reg_date && formik.touched.reg_date}
+                        />
+                        <ErrorMessage
+                          name="reg_date"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -300,18 +362,23 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">วอร์ด</span>
                         </div>
-                        <BSForm.Control
+                        <BsForm.Control
                           as="select"
                           name="ward"
                           value={formik.values.ward}
                           onChange={formik.handleChange}
                           onChange={(e) => fetchBeds(e.target.value)}
+                          isInvalid={formik.errors.ward && formik.touched.ward}
                         >
                           <option value="">-- เลือก --</option>
                           {wards && wards.map(ward => {
                             return <option key={ward.ward_id} value={ward.ward_id}>{ward.ward_name}</option>
                           })}
-                        </BSForm.Control>
+                        </BsForm.Control>
+                        <ErrorMessage
+                          name="ward"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
                       </div>
                     </div>
                   </div>
@@ -322,12 +389,21 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">เตียง</span>
                         </div>
-                        <BSForm.Control as="select" name="bed" onChange={formik.handleChange}>
+                        <BsForm.Control
+                          as="select"
+                          name="bed"
+                          onChange={formik.handleChange}
+                          isInvalid={formik.errors.bed && formik.touched.bed}
+                        >
                           <option value="">-- เลือก --</option>
                           {beds && beds.map(bed => {
                             return <option key={bed.bed_id} value={bed.bed_id}>{bed.bed_name}</option>
                           })}
-                        </BSForm.Control>
+                        </BsForm.Control>
+                        <ErrorMessage
+                          name="bed"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
                       </div>
                     </div>
                   </div>
@@ -338,7 +414,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">วันส่ง Lab</span>
                         </div>
-                        <BSForm.Control
+                        <BsForm.Control
                           type="date"
                           name="lab_date"
                           value={formik.values.lab_date}
@@ -355,13 +431,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">ผล Lab</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="lab_result"
                           value={formik.values.lab_result}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="ผล Lab"
+                          isInvalid={formik.errors.lab_result && formik.touched.lab_result}
+                        />                        
+                        <ErrorMessage
+                          name="lab_result"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -373,13 +454,18 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">Diag</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="dx"
                           value={formik.values.dx}
                           onChange={formik.handleChange}
                           className="form-control"
                           placeholder="Diag"
+                          isInvalid={formik.errors.dx && formik.touched.dx}
+                        />
+                        <ErrorMessage
+                          name="dx"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
                         />
                       </div>
                     </div>
@@ -391,7 +477,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <div className="input-group-prepend">
                           <span className="input-group-text">Code</span>
                         </div>
-                        <input
+                        <BsForm.Control
                           type="text"
                           name="code"
                           value={formik.values.code}
@@ -406,27 +492,36 @@ const FormPatient = ({ patient, handleSubmit }) => {
                   <div className="col-sm-6">
                     <div className="form-group">
                       <label>อาการ</label>
-                      <textarea
+                      <BsForm.Control
+                        as="textarea"
+                        rows="4"
                         name="symptom"
                         value={formik.values.symptom}
                         onChange={formik.handleChange}
                         className="form-control"
                         rows="3"
                         placeholder="อาการ"
-                      ></textarea>
+                        isInvalid={formik.errors.symptom && formik.touched.symptom}
+                      />
+                      <ErrorMessage
+                        name="symptom"
+                        render={msg => <span className="invalid-feedback">{msg}</span>}
+                      />
                     </div>
                   </div>
                   <div className="col-sm-6">
                     <div className="form-group">
                       <label>หมายเหตุ</label>
-                      <textarea
+                      <BsForm.Control
+                        as="textarea"
+                        rows="4"
                         name="remark"
                         value={formik.values.remark}
                         onChange={formik.handleChange}
                         className="form-control"
                         rows="3"
                         placeholder="หมายเหตุ"
-                      ></textarea>
+                      />
                     </div>
                   </div>
                 </div>{/* /.row */}
