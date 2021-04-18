@@ -10,10 +10,16 @@ const Dashboard = () => {
       <div className="row">
 
         <div className="col-lg-3 col-6">
-          <QuickStatsCard bg="bg-info" stat="150" name="New Orders" icon="ion-bag" url="/" />
+          <QuickStatsCard
+            bg="bg-info"
+            stat={<span>150<sup style={{ fontSize: '16px' }}>m$</sup></span>}
+            name="New Orders"
+            icon="ion-bag"
+            url="/"
+          />
         </div>
         <div className="col-lg-3 col-6">
-          <QuickStatsCard bg="bg-success" stat="53" name="Bounce Rate" icon="ion-stats-bars" url="/" />
+          <QuickStatsCard bg="bg-success" stat={['53', <sup style={{ fontSize: '20px' }}>%</sup>]} name="Bounce Rate" icon="ion-stats-bars" url="/" />
         </div>
         <div className="col-lg-3 col-6">
           <QuickStatsCard bg="bg-warning" stat="44" name="User Registrations" icon="ion-person-add" url="/" />

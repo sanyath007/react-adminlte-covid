@@ -1,11 +1,11 @@
 import React from 'react';
 import {  Link }  from 'react-router-dom';
 
-const QuickStatsCard = ({ bg, stat, name, icon, url }) => {
+const QuickStatsCard = ({ bg, stat, name, icon, url, ...rest }) => {
   return (
     <div className={`small-box ${bg}`}>
       <div className="inner">
-        <h3>{stat}<sup style={{ fontSize: '20px' }}>%</sup></h3>
+        <h3>{stat}</h3>
 
         <p>{name}</p>
       </div>
