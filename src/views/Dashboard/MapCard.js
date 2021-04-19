@@ -1,47 +1,28 @@
 import React from 'react';
+import GoogleMap from '../../components/GoogleMap';
 
-const MapCard = () => {
+const MapCard = ({ name, ...rest }) => {
   return (
     <div className="card bg-gradient-primary">
       <div className="card-header border-0">
         <h3 className="card-title">
           <i className="fas fa-map-marker-alt mr-1"></i>
-          Visitors
+          {name}
         </h3>
         <div className="card-tools">
-          <button type="button"
-                  className="btn btn-primary btn-sm daterange"
-                  data-toggle="tooltip"
-                  title="Date range">
-            <i className="far fa-calendar-alt"></i>
-          </button>
-          <button type="button"
-                  className="btn btn-primary btn-sm"
-                  data-card-widget="collapse"
-                  data-toggle="tooltip"
-                  title="Collapse">
+          <button 
+            type="button"
+            className="btn btn-primary btn-sm"
+            data-card-widget="collapse"
+            data-toggle="tooltip"
+            title="Collapse"
+          >
             <i className="fas fa-minus"></i>
           </button>
         </div>
       </div>
       <div className="card-body">
-        <div id="world-map" style={{ height: '250px', width: '100%' }}></div>
-      </div>
-      <div className="card-footer bg-transparent">
-        <div className="row">
-          <div className="col-4 text-center">
-            <div id="sparkline-1"></div>
-            <div className="text-white">Visitors</div>
-          </div>
-          <div className="col-4 text-center">
-            <div id="sparkline-2"></div>
-            <div className="text-white">Online</div>
-          </div>
-          <div className="col-4 text-center">
-            <div id="sparkline-3"></div>
-            <div className="text-white">Sales</div>
-          </div>
-        </div>
+        <GoogleMap latitude={14.952984} longitude={102.164583} zoom={16} />
       </div>
     </div>
   );
