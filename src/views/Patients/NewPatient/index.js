@@ -1,13 +1,18 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import FormPatient from '../Form';
 import api from '../../../api';
 
 const NewPatient = () => {
+  const history = useHistory();
+
   const handleSubmit = async (data) => {
     console.log(data);
 
     let res = await api.post('/patients', data);
     console.log(res);
+
+    history.push('/patients');
   };
 
   return (
