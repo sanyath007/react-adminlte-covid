@@ -55,7 +55,8 @@ const PatientList = () => {
               <th style={{ width: '5%', textAlign: 'center' }}>อายุ (ปี)</th>
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ Admit</th>
               {/* <th style={{ width: '8%', textAlign: 'center' }}>วันที่ส่ง Lab</th> */}
-              <th style={{ width: '6%', textAlign: 'center' }}>ผล Lab</th>
+              {/* <th style={{ width: '6%', textAlign: 'center' }}>ผล Lab</th> */}
+              <th style={{ width: '10%', textAlign: 'center' }}>วอร์ด</th>
               <th style={{ width: '6%', textAlign: 'center' }}>Dx</th>
               {/* <th>อาการโดยรวม</th> */}
               <th style={{ width: '8%', textAlign: 'center' }}>สถานะ</th>
@@ -69,7 +70,7 @@ const PatientList = () => {
             {registrations && registrations.map((reg, index) => {
               return (
                 <tr key={reg.hn}>
-                  <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                  <td style={{ textAlign: 'center' }}>{pager.from + index}</td>
                   <td style={{ textAlign: 'center' }}>{reg.code}</td>
                   <td style={{ textAlign: 'center' }}>{reg.hn}</td>
                   <td style={{ fontSize: '14px' }}>{reg.patient?.name}</td>
@@ -77,7 +78,8 @@ const PatientList = () => {
                   <td style={{ textAlign: 'center' }}>{reg.patient?.age_y}</td>
                   <td style={{ textAlign: 'center' }}>{moment(reg.reg_date).format('DD/MM/YYYY')}</td>
                   {/* <td style={{ textAlign: 'center' }}>{moment(reg.lab_date).format('DD/MM/YYYY')}</td> */}
-                  <td style={{ textAlign: 'center' }}>{reg.lab_result}</td>
+                  {/* <td style={{ textAlign: 'center' }}>{reg.lab_result}</td> */}
+                  <td style={{ textAlign: 'center' }}>{reg.bed?.bed_name}</td>
                   <td style={{ textAlign: 'center' }}>{reg.dx}</td>
                   {/* <td style={{ fontSize: '14px' }}>{reg.symptom}</td> */}
                   <td style={{ textAlign: 'center' }}>{regStates[reg.reg_state]}</td>
