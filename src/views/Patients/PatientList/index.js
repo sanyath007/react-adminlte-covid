@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import moment from 'moment';
 import api from '../../../api';
 
+const regStates = ['รอผล','Covid Pos','Covid Neg','PUI','สงสัย'];
+
 const PatientList = () => {
   const [registrations, setRegistrations] = useState([]);
   const [pager, setPager] = useState([]);
 
   const fetchRegistrations = async () => {
     let res = await api.get(`/patients`);
-    console.log(res.data);
 
     setRegistrations(res.data.items);
     setPager(res.data.pager);
@@ -53,10 +54,11 @@ const PatientList = () => {
               <th style={{ width: '5%', textAlign: 'center' }}>เพศ</th>
               <th style={{ width: '5%', textAlign: 'center' }}>อายุ (ปี)</th>
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ Admit</th>
-              <th style={{ width: '8%', textAlign: 'center' }}>วันที่ส่ง Lab</th>
+              {/* <th style={{ width: '8%', textAlign: 'center' }}>วันที่ส่ง Lab</th> */}
               <th style={{ width: '6%', textAlign: 'center' }}>ผล Lab</th>
               <th style={{ width: '6%', textAlign: 'center' }}>Dx</th>
               {/* <th>อาการโดยรวม</th> */}
+              <th style={{ width: '8%', textAlign: 'center' }}>สถานะ</th>
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ D/C</th>
               {/* <th style={{ width: '6%', textAlign: 'center' }}>จน.วันนอน</th> */}
               {/* <th>หมายเหตุ</th> */}
@@ -74,10 +76,11 @@ const PatientList = () => {
                   <td style={{ textAlign: 'center' }}>{reg.patient?.sex ? 'ชาย' : 'หญิง'}</td>
                   <td style={{ textAlign: 'center' }}>{reg.patient?.age_y}</td>
                   <td style={{ textAlign: 'center' }}>{moment(reg.reg_date).format('DD/MM/YYYY')}</td>
-                  <td style={{ textAlign: 'center' }}>{moment(reg.lab_date).format('DD/MM/YYYY')}</td>
+                  {/* <td style={{ textAlign: 'center' }}>{moment(reg.lab_date).format('DD/MM/YYYY')}</td> */}
                   <td style={{ textAlign: 'center' }}>{reg.lab_result}</td>
                   <td style={{ textAlign: 'center' }}>{reg.dx}</td>
                   {/* <td style={{ fontSize: '14px' }}>{reg.symptom}</td> */}
+                  <td style={{ textAlign: 'center' }}>{regStates[reg.reg_state]}</td>
                   <td style={{ textAlign: 'center' }}>
                     {reg.dch_date
                       ? moment(reg.dch_date).format('DD/MM/YYYY')
