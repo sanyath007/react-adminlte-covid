@@ -50,15 +50,15 @@ const PatientList = () => {
             </tr>
           </thead>
           <tbody>
-            {registrations.map((reg, index) => {
+            {registrations && registrations.map((reg, index) => {
               return (
                 <tr key={reg.hn}>
                   <td style={{ textAlign: 'center' }}>{index + 1}</td>
                   <td style={{ textAlign: 'center' }}>{reg.code}</td>
                   <td style={{ textAlign: 'center' }}>{reg.hn}</td>
-                  <td style={{ fontSize: '14px' }}>{reg.patient.name}</td>
-                  <td style={{ textAlign: 'center' }}>{reg.patient.sex ? 'ชาย' : 'หญิง'}</td>
-                  <td style={{ textAlign: 'center' }}>{reg.patient.age_y}</td>
+                  <td style={{ fontSize: '14px' }}>{reg.patient?.name}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.patient?.sex ? 'ชาย' : 'หญิง'}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.patient?.age_y}</td>
                   <td style={{ textAlign: 'center' }}>{moment(reg.reg_date).format('DD/MM/YYYY')}</td>
                   <td style={{ textAlign: 'center' }}>{moment(reg.lab_date).format('DD/MM/YYYY')}</td>
                   <td style={{ textAlign: 'center' }}>{reg.lab_result}</td>
