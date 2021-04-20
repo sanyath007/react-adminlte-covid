@@ -2,8 +2,13 @@ import React from 'react';
 import { Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Form as BsForm } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import * as authServices from '../../features/auth';
 
 const Signin = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const authSchema = Yup.object().shape({
     username: Yup.string().required('Username is required!!'),
     password: Yup.string().required('Password is required!!'),
@@ -11,9 +16,10 @@ const Signin = () => {
 
   const onSubmit = async (values, props) => {
     const { username, password } = values;
-    console.log(username, password);
 
-    // props.resetForm();
+    dispatch(authServices.login({ username, password }, history));
+
+    props.resetForm();
   };
 
   return (
