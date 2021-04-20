@@ -102,7 +102,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
 
   useEffect(() => {
     fetchWards();
-  });
+  }, [patient]);
 
   return (
     <Formik
