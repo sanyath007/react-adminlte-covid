@@ -126,7 +126,7 @@ const PatientList = () => {
                 className="page-link"
                 onClick={() => handlePaginationClick(pager.prev_page_url)}
               >
-                <i class="fas fa-arrow-circle-left"></i>
+                <i className="fas fa-arrow-circle-left"></i>
               </a>
             </li>
             <li className={`page-item ${!pager.next_page_url && 'disabled'}`}>
@@ -135,7 +135,7 @@ const PatientList = () => {
                 className="page-link"
                 onClick={() => handlePaginationClick(pager.next_page_url)}
               >
-                <i class="fas fa-arrow-circle-right"></i>
+                <i className="fas fa-arrow-circle-right"></i>
               </a>
             </li>
             <li className={`page-item ${pager.current_page === pager.last_page && 'disabled'}`}>
