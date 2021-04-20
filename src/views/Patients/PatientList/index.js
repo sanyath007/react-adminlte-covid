@@ -5,11 +5,25 @@ import api from '../../../api';
 
 const PatientList = () => {
   const [registrations, setRegistrations] = useState([]);
+  const [pager, setPager] = useState([]);
 
   const fetchRegistrations = async () => {
     let res = await api.get(`/patients`);
+    console.log(res.data);
 
     setRegistrations(res.data.items);
+    setPager(res.data.pager);
+  };
+
+  const fetchRegistrationsWithPage = async (url) => {
+    let res = await api.get(url);
+
+    setRegistrations(res.data.items);
+    setPager(res.data.pager);
+  };
+
+  const handlePaginationClick = (url) => {
+    fetchRegistrationsWithPage(url);
   };
 
   useEffect(() => {
@@ -94,13 +108,42 @@ const PatientList = () => {
         </table>
       </div>
       <div className="card-footer clearfix">
-        <ul className="pagination pagination-md m-0 float-right">
-          <li className="page-item"><a className="page-link" href="#">&laquo;</a></li>
-          <li className="page-item"><a className="page-link" href="#">1</a></li>
-          <li className="page-item"><a className="page-link" href="#">2</a></li>
-          <li className="page-item"><a className="page-link" href="#">3</a></li>
-          <li className="page-item"><a className="page-link" href="#">&raquo;</a></li>
-        </ul>
+        {pager && (
+          <ul className="pagination pagination-md m-0 float-right">
+            <li className={`page-item ${pager.current_page === 1 && 'disabled'}`}>
+              <a
+                href="#"
+                className="page-link"
+                onClick={() => handlePaginationClick(pager.first_page_url)}
+              >&laquo;</a>
+            </li>
+            <li className={`page-item ${!pager.prev_page_url && 'disabled'}`}>
+              <a
+                href="#"
+                className="page-link"
+                onClick={() => handlePaginationClick(pager.prev_page_url)}
+              >
+                <i class="fas fa-arrow-circle-left"></i>
+              </a>
+            </li>
+            <li className={`page-item ${!pager.next_page_url && 'disabled'}`}>
+              <a
+                href="#"
+                className="page-link"
+                onClick={() => handlePaginationClick(pager.next_page_url)}
+              >
+                <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </li>
+            <li className={`page-item ${pager.current_page === pager.last_page && 'disabled'}`}>
+              <a
+                href="#"
+                className="page-link"
+                onClick={() => handlePaginationClick(pager.last_page_url)}
+              >&raquo;</a>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
