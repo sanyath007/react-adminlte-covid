@@ -1,5 +1,6 @@
 import React from 'react';
-import GoogleMap from '../../components/GoogleMap';
+// import GoogleMap from '../../components/GoogleMap';
+import LeafletMap from '../../components/LeafletMap';
 
 const MapCard = ({ name, ...rest }) => {
   return (
@@ -22,7 +23,9 @@ const MapCard = ({ name, ...rest }) => {
         </div>
       </div>
       <div className="card-body">
-        <GoogleMap latitude={14.952984} longitude={102.164583} zoom={16} />
+        {/* <GoogleMap latitude={14.952984} longitude={102.164583} zoom={16} /> */}
+        <LeafletMap latitude={14.9529} longitude={102.1645} zoom={10} />
+
       </div>
     </div>
   );

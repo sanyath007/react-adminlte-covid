@@ -97,25 +97,25 @@ const Dashboard = () => {
 
         <section className="col-lg-12 connectedSortable">
           {/* Map card */}
-          <MapCard />
+          <MapCard name="Map" />
 
         </section>
 
-        <section className="col-lg-7 connectedSortable">
+        {/* <section className="col-lg-7 connectedSortable"> */}
           {/* Direct Chat */}
 
           {/* TO DO List */}
 
-        </section>
+        {/* </section> */}
         {/* Left col */}
 
         {/* Right col (We are only adding the ID to make the widgets sortable) */}
-        <section className="col-lg-5 connectedSortable">
+        {/* <section className="col-lg-5 connectedSortable"> */}
           {/* Solid Sales Graph */}
 
           {/* Calendar */}
 
-        </section>
+        {/* </section> */}
 
       </div>{/* /.row */}
     </div>
