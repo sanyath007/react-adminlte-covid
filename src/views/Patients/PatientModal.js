@@ -56,6 +56,7 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
               <th style={{ width: '8%', textAlign: 'center' }}>อายุ (ปี)</th>
               <th style={{ width: '12%', textAlign: 'center' }}>วันที่ Admit</th>
               <th style={{ width: '20%' }}>วอร์ด</th>
+              <th style={{ width: '6%' }}>Diag</th>
               <th style={{ width: '8%', textAlign: 'center' }}>Actions</th>
             </tr>
           </thead>
@@ -73,6 +74,9 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
                   {moment(ip.regdate).format('DD/MM/YYYY')}
                 </td>
                 <td>{ip.hward?.name}</td>
+                <td style={{ textAlign: 'center' }}>
+                  {ip.hanstat?.pdx}
+                </td>
                 <td style={{ textAlign: 'center' }}>
                   <Button onClick={() => {
                     onSelected(ip);

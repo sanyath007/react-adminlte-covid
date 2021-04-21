@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import api from '../../../api';
+import DischargeModal from './DischargeModal';
 
 const regStates = ['รอผล','Covid Pos','Covid Neg','PUI','สงสัย'];
 
 const PatientList = () => {
   const [registrations, setRegistrations] = useState([]);
-  const [pager, setPager] = useState([]);
+  const [pager, setPager] = useState(null);
+  const [openDchModal, setOpenDchModal] = useState(false);
+  const [dischargeData, setDischargeData] = useState(null);
 
   const fetchRegistrations = async () => {
     let res = await api.get(`/patients`);
@@ -27,13 +30,16 @@ const PatientList = () => {
     fetchRegistrationsWithPage(url);
   };
 
-  const onDischarge = async (e, id) => {
-    e.preventDefault();
-    let res = await api.put(`/registrations/discharge/${id}`);
+  const onHideDchModal = () => {
+    setOpenDchModal(false);
+  };
+
+  const onDischarge = async (data) => {
+    let res = await api.put(`/registrations/discharge/${data.id}`, data);
     console.log(res);
 
     const updateRegistrations = registrations.map((reg) => {
-      if (reg.id === id) {
+      if (reg.id === data.id) {
         return res.data.data;
       }
 
@@ -49,6 +55,14 @@ const PatientList = () => {
 
   return (
     <div className="card">
+      
+      <DischargeModal
+        data={dischargeData}
+        isOpen={openDchModal}
+        hideModal={onHideDchModal}
+        onSubmit={onDischarge}
+      />
+
       <div className="card-header">
         <div className="row">
           <div className="col-md-6">
@@ -86,7 +100,7 @@ const PatientList = () => {
             {registrations && registrations.map((reg, index) => {
               return (
                 <tr key={reg.hn}>
-                  <td style={{ textAlign: 'center' }}>{(pager.from + index).toString()}</td>
+                  <td style={{ textAlign: 'center' }}>{(pager?.from + index).toString()}</td>
                   <td style={{ textAlign: 'center' }}>{reg.code}</td>
                   <td style={{ textAlign: 'center' }}>{reg.hn}</td>
                   <td style={{ fontSize: '14px' }}>{reg.patient?.name}</td>
@@ -106,7 +120,10 @@ const PatientList = () => {
                         <a
                           href="#"
                           className="btn btn-sm bg-danger"
-                          onClick={(e) => onDischarge(e, reg.id)}
+                          onClick={() => {
+                            setDischargeData(reg);
+                            setOpenDchModal(true);
+                          }}
                           title="จำหน่าย"
                         >
                           <i className="fas fa-sign-out-alt"></i>
