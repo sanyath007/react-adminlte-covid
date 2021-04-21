@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Col,
@@ -7,28 +7,13 @@ import {
   Form as BsForm,
 } from 'react-bootstrap';
 import { Form, Formik, ErrorMessage } from 'formik';
-import api from '../../../api';
 
 function DischargeModal({ isOpen, hideModal, onSubmit, data }) {
-  const [ip, setIp] = useState(null);
-
   const handleSubmit = (values, props) => {
-    const { id } = data;
-    const { dch_type, dch_date, dch_time, adm_date } = values;
+    const { dch_type, dch_date, dch_time, adm_day } = values;
 
-    onSubmit({ id, dch_type, dch_date, dch_time, adm_date });
+    onSubmit({ id: data.id, dch_type, dch_date, dch_time, adm_day });
   };
-
-  const fetchIpByAn = async (an) => {
-    let res = await api.get(`/ips/${an}`);
-    console.log(res);
-
-    setIp(res.data);
-  };
-
-  useEffect(() => {
-    fetchIpByAn(data?.an);
-  }, [data]);
 
   return (
     <Modal
@@ -42,11 +27,12 @@ function DischargeModal({ isOpen, hideModal, onSubmit, data }) {
         <Row>
           <Col>
             <Formik
+              enableReinitialize={data}
               initialValues={{
-                dch_type: ip?.dchtype || '',
-                dch_date: ip?.dchdate || '',
-                dch_time: ip?.dchtime || '',
-                adm_date: ip?.hanstat?.admdate || '',
+                dch_type: data?.dchtype || '',
+                dch_date: data?.dchdate || '',
+                dch_time: data?.dchtime || '',
+                adm_day: data?.admdate || ''
               }}
               onSubmit={handleSubmit}
             >
@@ -125,13 +111,13 @@ function DischargeModal({ isOpen, hideModal, onSubmit, data }) {
                           <BsForm.Control
                             type="text"
                             className="form-control"
-                            name="adm_date"
-                            value={formik.values.adm_date}
+                            name="adm_day"
+                            value={formik.values.adm_day}
                             onChange={formik.handleChange}
-                            isInvalid={formik.errors.adm_date && formik.touched.adm_date}
+                            isInvalid={formik.errors.adm_day && formik.touched.adm_day}
                           />
                           <ErrorMessage
-                            name="adm_date"
+                            name="adm_day"
                             render={msg => <span className="invalid-feedback">{msg}</span>}
                           />
                         </div>

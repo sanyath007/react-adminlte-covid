@@ -10,7 +10,7 @@ const PatientList = () => {
   const [registrations, setRegistrations] = useState([]);
   const [pager, setPager] = useState(null);
   const [openDchModal, setOpenDchModal] = useState(false);
-  const [dischargeData, setDischargeData] = useState(null);
+  const [dischargeData, setDischargeData] = useState({});
 
   const fetchRegistrations = async () => {
     let res = await api.get(`/patients`);
@@ -28,6 +28,19 @@ const PatientList = () => {
 
   const handlePaginationClick = (url) => {
     fetchRegistrationsWithPage(url);
+  };
+
+  const fetchIpByAn = async (reg) => {
+    let res = await api.get(`/ips/${reg.an}`);
+
+    let { dchtype, dchdate, dchtime, hanstat } = res.data;
+
+    if (dchdate) {
+      console.log('dchdate is not null!!'); 
+      setDischargeData({ id: reg.id, dchtype, dchdate, dchtime, admdate: hanstat.admdate });
+    } else {
+      setDischargeData({});
+    }
   };
 
   const onHideDchModal = () => {
@@ -121,7 +134,7 @@ const PatientList = () => {
                           href="#"
                           className="btn btn-sm bg-danger"
                           onClick={() => {
-                            setDischargeData(reg);
+                            fetchIpByAn(reg);
                             setOpenDchModal(true);
                           }}
                           title="จำหน่าย"
