@@ -27,6 +27,22 @@ const PatientList = () => {
     fetchRegistrationsWithPage(url);
   };
 
+  const onDischarge = async (e, id) => {
+    e.preventDefault();
+    let res = await api.put(`/registrations/discharge/${id}`);
+    console.log(res);
+
+    const updateRegistrations = registrations.map((reg) => {
+      if (reg.id === id) {
+        return res.data.data;
+      }
+
+      return reg;
+    });
+
+    setRegistrations(updateRegistrations);
+  };
+
   useEffect(() => {
     fetchRegistrations();
   }, []);
@@ -56,7 +72,7 @@ const PatientList = () => {
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ Admit</th>
               {/* <th style={{ width: '8%', textAlign: 'center' }}>วันที่ส่ง Lab</th> */}
               {/* <th style={{ width: '6%', textAlign: 'center' }}>ผล Lab</th> */}
-              <th style={{ width: '10%', textAlign: 'center' }}>วอร์ด</th>
+              <th style={{ width: '15%', textAlign: 'center' }}>วอร์ด</th>
               <th style={{ width: '6%', textAlign: 'center' }}>Dx</th>
               {/* <th>อาการโดยรวม</th> */}
               <th style={{ width: '8%', textAlign: 'center' }}>สถานะ</th>
@@ -70,7 +86,7 @@ const PatientList = () => {
             {registrations && registrations.map((reg, index) => {
               return (
                 <tr key={reg.hn}>
-                  <td style={{ textAlign: 'center' }}>{pager.from + index}</td>
+                  <td style={{ textAlign: 'center' }}>{(pager.from + index).toString()}</td>
                   <td style={{ textAlign: 'center' }}>{reg.code}</td>
                   <td style={{ textAlign: 'center' }}>{reg.hn}</td>
                   <td style={{ fontSize: '14px' }}>{reg.patient?.name}</td>
@@ -87,9 +103,14 @@ const PatientList = () => {
                     {reg.dch_date
                       ? moment(reg.dch_date).format('DD/MM/YYYY')
                       : (
-                        <Link className="btn btn-sm bg-danger" to="/" title="จำหน่าย">
+                        <a
+                          href="#"
+                          className="btn btn-sm bg-danger"
+                          onClick={(e) => onDischarge(e, reg.id)}
+                          title="จำหน่าย"
+                        >
                           <i className="fas fa-sign-out-alt"></i>
-                        </Link>
+                        </a>
                       )
                     }
                   </td>
