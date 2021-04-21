@@ -10,9 +10,7 @@ import { Form, Formik, ErrorMessage } from 'formik';
 
 function DischargeModal({ isOpen, hideModal, onSubmit, data }) {
   const handleSubmit = (values, props) => {
-    const { dch_type, dch_date, dch_time, adm_day } = values;
-
-    onSubmit({ id: data.id, dch_type, dch_date, dch_time, adm_day });
+    onSubmit(values);
   };
 
   return (
@@ -29,6 +27,7 @@ function DischargeModal({ isOpen, hideModal, onSubmit, data }) {
             <Formik
               enableReinitialize={data}
               initialValues={{
+                id: data?.id || '',
                 dch_type: data?.dchtype || '',
                 dch_date: data?.dchdate || '',
                 dch_time: data?.dchtime || '',

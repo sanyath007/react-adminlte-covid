@@ -40,7 +40,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     an: Yup.string().required('กรุณาระบุ AN !!!'),
     reg_date: Yup.string().required('กรุณาระบุวันที่ Admit !!!'),
     bed: Yup.string().required('กรุณาระบุเตียงก่อน !!!'),
-    lab_result: Yup.string().required('กรุณาระบุผล Lab ก่อน !!!'),
+    // lab_result: Yup.string().required('กรุณาระบุผล Lab ก่อน !!!'),
     dx: Yup.string().required('กรุณาระบุผลการวินิจฉัย (Diag) ก่อน !!!'),
     symptom: Yup.string().required('กรุณาระบุอาการก่อน !!!'),
   });
@@ -120,8 +120,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
         reg_date: patient ? patient.reg_date : moment().format('YYYY-MM-DD'),
         ward: patient ? patient.ward : '',
         bed: patient ? patient.bed : '',
-        lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
-        lab_result: patient ? patient.lab_result : '',
+        // lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
+        // lab_result: patient ? patient.lab_result : '',
         dx: patient ? patient.dx : '',
         symptom: patient ? patient.symptom : '',
         dch_date: patient ? patient.dch_date : '',
@@ -427,7 +427,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                     </div>
                   </div>
 
-                  <div className="col-sm-4">
+                  {/* <div className="col-sm-4">
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
@@ -465,7 +465,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   
                   <div className="col-sm-8">
                     <div className="form-group">
