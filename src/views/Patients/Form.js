@@ -386,8 +386,10 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           as="select"
                           name="ward"
                           value={formik.values.ward}
-                          onChange={formik.handleChange}
-                          onChange={(e) => fetchBedsByWard(e.target.value)}
+                          onChange={(e) => {
+                            formik.handleChange(e);
+                            fetchBedsByWard(e.target.value);
+                          }}
                           isInvalid={formik.errors.ward && formik.touched.ward}
                         >
                           <option value="">-- เลือก --</option>
