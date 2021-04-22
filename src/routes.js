@@ -2,6 +2,7 @@ import Dashboard from './views/Dashboard';
 import Patients from './views/Patients';
 import PatientList from './views/Patients/PatientList';
 import NewPatient from './views/Patients/NewPatient';
+import EditPatient from './views/Patients/EditPatient';
 import Registrations from './views/Registrations';
 import RegistrationList from './views/Registrations/RegistrationList';
 import NewRegistration from './views/Registrations/NewRegistration';
@@ -22,6 +23,7 @@ const routes = [
     routes: [
       { path: '/', name: 'รายชื่อผู้ป่วย', component: PatientList },
       { path: '/new', name: 'เพิ่มผู้ป่วย', component: NewPatient },
+      { path: '/edit/:id', name: 'แก้ไขผู้ป่วย', component: EditPatient },
     ]
   },
   {

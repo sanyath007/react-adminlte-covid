@@ -106,20 +106,21 @@ const FormPatient = ({ patient, handleSubmit }) => {
 
   return (
     <Formik
+      enableReinitialize={patient}
       initialValues={{
-        id: patient ? patient.id : '',
-        code: patient ? patient.code : '',
-        hn: patient ? patient.hn : '',
-        cid: patient ? patient.cid : '',
-        name: patient ? patient.name : '',
-        sex: patient ? patient.sex : '',
-        age_y: patient ? patient.age_y : '',
-        birthdate: patient ? patient.birthdate : moment().format('YYYY-MM-DD'),
-        tel: patient ? patient.tel : '',
-        an: patient ? patient.an : '',
-        reg_date: patient ? patient.reg_date : moment().format('YYYY-MM-DD'),
-        ward: patient ? patient.ward : '',
-        bed: patient ? patient.bed : '',
+        id: patient ? patient?.patient?.id : '',
+        hn: patient ? patient?.patient?.hn : '',
+        cid: patient ? patient?.patient?.cid : '',
+        name: patient ? patient?.patient?.name : '',
+        sex: patient ? patient?.patient?.sex : '',
+        age_y: patient ? patient?.patient?.age_y : '',
+        birthdate: patient ? patient?.patient?.birthdate : moment().format('YYYY-MM-DD'),
+        tel: patient ? patient?.patient?.tel : '',
+        an: patient ? patient?.an : '',
+        code: patient?.code || '',
+        reg_date: patient ? patient?.reg_date : moment().format('YYYY-MM-DD'),
+        ward: patient ? patient?.ward : '',
+        bed: patient ? patient?.bed : '',
         // lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
         // lab_result: patient ? patient.lab_result : '',
         dx: patient ? patient.dx : '',
@@ -517,6 +518,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <BsForm.Control
                           as="select"
                           name="reg_from"
+                          value={formik.values.reg_from}
                           onChange={formik.handleChange}
                           isInvalid={formik.errors.reg_from && formik.touched.reg_from}
                         >
@@ -542,6 +544,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <BsForm.Control
                           as="select"
                           name="reg_state"
+                          value={formik.values.reg_state}
                           onChange={formik.handleChange}
                           isInvalid={formik.errors.reg_state && formik.touched.reg_state}
                         >

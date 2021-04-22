@@ -150,12 +150,16 @@ const PatientList = () => {
                     <Link className="btn btn-sm bg-info" to="/">
                       <i className="fas fa-search"></i>
                     </Link>
-                    <Link className="btn btn-sm bg-warning" to="/">
-                      <i className="fas fa-edit"></i>
-                    </Link>
-                    <Link className="btn btn-sm bg-danger" to="/">
-                      <i className="fas fa-trash-alt"></i>
-                    </Link>
+                    {!reg.dch_date && (
+                      <>
+                        <Link className="btn btn-sm bg-warning" to={`/patients/edit/${reg.id}`}>
+                          <i className="fas fa-edit"></i>
+                        </Link>
+                        <Link className="btn btn-sm bg-danger" to="/">
+                          <i className="fas fa-trash-alt"></i>
+                        </Link>
+                      </>
+                    )}
                   </td>
                 </tr>
               );
