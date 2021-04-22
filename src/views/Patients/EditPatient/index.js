@@ -12,15 +12,14 @@ const EditPatient = () => {
   const handleSubmit = async (data) => {
     console.log(data);
 
-    let res = await api.post('/patients', data);
-    console.log(res);
+    // let res = await api.post('/patients', data);
+    // console.log(res);
 
-    history.push('/patients');
+    // history.push('/patients');
   };
 
   const fetchRegistration = async (_id) => {
     let res = await api.get(`/registrations/${_id}`);
-    console.log(res);
 
     setPatient(res.data);
   };

@@ -6,3 +6,16 @@ export const calcAge = (birthday) => {
 
   return now.diff(birth, 'years');
 };
+
+export const mapHWardToWard = (ward) => {
+  switch (ward) {
+    case '00':
+      return '2';    
+    case '05':
+      return '3'    
+    case '06':
+      return '1'
+    default:
+      break;
+  }
+};

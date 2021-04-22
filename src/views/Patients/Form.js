@@ -5,7 +5,7 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import moment from "moment";
 import PatientModal from './PatientModal';
-import { calcAge } from '../../utils';
+import { calcAge, mapHWardToWard } from '../../utils';
 import api from '../../api';
 
 const regFroms = [
@@ -53,19 +53,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
     setOpenModal(false);
   };
 
-  const mapHWardToWard = (ward) => {
-    switch (ward) {
-      case '00':
-        return '2';    
-      case '05':
-        return '3'    
-      case '06':
-        return '1'
-      default:
-        break;
-    }
-  };
-
   const handleModalSelectedData = (ip, setFieldValue) => {
     /** Patient info */
     setFieldValue('hn', ip.hn);
@@ -90,8 +77,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
     setWards(res.data);
   };
 
-  const fetchBedsByWard = async (ward) => {
-    let res = await api.get(`/beds/ward/${ward}/1`);
+  const fetchBedsByWard = async (ward, status=1) => {
+    let res = await api.get(`/beds/ward/${ward}/${status}`);
 
     setBeds(res.data);
   };
@@ -101,6 +88,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
   };
 
   useEffect(() => {
+    if (patient) fetchBedsByWard(patient?.ward, 0);
+
     fetchWards();
   }, [patient]);
 
@@ -120,7 +109,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
         code: patient?.code || '',
         reg_date: patient ? patient?.reg_date : moment().format('YYYY-MM-DD'),
         ward: patient ? patient?.ward : '',
-        bed: patient ? patient?.bed : '',
+        bed: patient ? parseInt(patient?.bed?.bed_id) : '',
         // lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
         // lab_result: patient ? patient.lab_result : '',
         dx: patient ? patient.dx : '',
@@ -163,19 +152,22 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           className="form-control"
                           placeholder="HN"
                           isInvalid={formik.errors.hn && formik.touched.hn}
+                          readOnly={patient}
                         />                        
-                        <div className="input-group-append">
-                          <a
-                            href="#"
-                            className="btn btn-primary"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setOpenModal(true)
-                            }}
-                          >
-                            <i className="fas fa-search"></i>
-                          </a>
-                        </div>
+                        {!patient && (
+                          <div className="input-group-append">
+                            <a
+                              href="#"
+                              className="btn btn-primary"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setOpenModal(true)
+                              }}
+                            >
+                              <i className="fas fa-search"></i>
+                            </a>
+                          </div>
+                        )}
                         <ErrorMessage
                           name="hn"
                           render={msg => <span className="invalid-feedback">{msg}</span>}
@@ -198,6 +190,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           className="form-control"
                           placeholder="ชื่อ-สกุล"
                           isInvalid={formik.errors.name && formik.touched.name}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="name"
@@ -221,6 +214,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           className="form-control"
                           placeholder="CID"
                           isInvalid={formik.errors.cid && formik.touched.cid}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="cid"
@@ -242,6 +236,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           value={formik.values.sex}
                           onChange={formik.handleChange}
                           isInvalid={formik.errors.sex && formik.touched.sex}
+                          disabled={patient}
                         >
                           <option value="">-- เลือก --</option>
                           <option value="1">ชาย</option>
@@ -268,6 +263,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           onChange={(e) => formik.setFieldValue('birthdate', e.target.value)}
                           placeholder="วันเกิด"
                           isInvalid={formik.errors.birthdate && formik.touched.birthdate}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="birthdate"
@@ -291,6 +287,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           className="form-control"
                           placeholder="อายุ"
                           isInvalid={formik.errors.age_y && formik.touched.age_y}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="age_y"
@@ -314,6 +311,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           className="form-control"
                           placeholder="เบอร์ติดต่อ"
                           isInvalid={formik.errors.tel && formik.touched.tel}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="tel"
@@ -345,6 +343,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           className="form-control"
                           placeholder="AN"
                           isInvalid={formik.errors.an && formik.touched.an}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="an"
@@ -367,6 +366,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           onChange={(e) => formik.setFieldValue('reg_date', e.target.value)}
                           placeholder="วัน Admit"
                           isInvalid={formik.errors.reg_date && formik.touched.reg_date}
+                          readOnly={patient}
                         />
                         <ErrorMessage
                           name="reg_date"
@@ -412,6 +412,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                         <BsForm.Control
                           as="select"
                           name="bed"
+                          value={formik.values.bed}
                           onChange={formik.handleChange}
                           isInvalid={formik.errors.bed && formik.touched.bed}
                         >
