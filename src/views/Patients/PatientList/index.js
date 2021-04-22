@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from 'moment';
 import api from '../../../api';
 import DischargeModal from './DischargeModal';
+import LabResultModal from './LabResultModal';
 
 const regStates = ['รอผล','Covid Pos','Covid Neg','PUI','สงสัย'];
 
@@ -11,6 +12,8 @@ const PatientList = () => {
   const [pager, setPager] = useState(null);
   const [openDchModal, setOpenDchModal] = useState(false);
   const [dischargeData, setDischargeData] = useState({});
+  const [openLabResultModal, setOpenLabResultModal] = useState(false);
+  const [labData, setLabData] = useState({});
 
   const fetchRegistrations = async () => {
     let res = await api.get(`/patients`);
@@ -43,23 +46,43 @@ const PatientList = () => {
     }
   };
 
-  const onHideDchModal = () => {
-    setOpenDchModal(false);
-  };
-
   const onDischarge = async (data) => {
     let res = await api.put(`/registrations/discharge/${data.id}`, data);
-    console.log(res);
 
-    const updateRegistrations = registrations.map((reg) => {
-      if (reg.id === data.id) {
-        return res.data.data;
+    updateRegistrations(data.id, res.data.data);
+  };
+
+  const updateRegistrations = (id, res) => {
+    let updated = registrations.map((reg) => {
+      if (reg.id === id) {
+        return res;
       }
 
       return reg;
     });
 
-    setRegistrations(updateRegistrations);
+    setRegistrations(updated);
+  };
+
+  const onLabResultSubmit = async (data) => {
+    let res = await api.put(`/registrations/lab-result/${data.id}`, data);
+    console.log(res);
+
+    updateRegistrations(data.id, res.data.data);
+  };
+
+  const renderLabResult = (id) => {
+    return (
+      <a
+        href="#" 
+        onClick={() => {
+          setOpenLabResultModal(true);
+          setLabData({ id });
+        }}
+      >
+        <i className="fas fa-history"></i>
+      </a>
+    );
   };
 
   useEffect(() => {
@@ -72,8 +95,15 @@ const PatientList = () => {
       <DischargeModal
         data={dischargeData}
         isOpen={openDchModal}
-        hideModal={onHideDchModal}
+        hideModal={() => setOpenDchModal(false)}
         onSubmit={onDischarge}
+      />
+      
+      <LabResultModal
+        isOpen={openLabResultModal}
+        hideModal={() => setOpenLabResultModal(false)}
+        onSubmit={onLabResultSubmit}
+        data={labData}
       />
 
       <div className="card-header">
@@ -100,7 +130,8 @@ const PatientList = () => {
               {/* <th style={{ width: '8%', textAlign: 'center' }}>วันที่ส่ง Lab</th> */}
               {/* <th style={{ width: '6%', textAlign: 'center' }}>ผล Lab</th> */}
               <th style={{ width: '15%', textAlign: 'center' }}>วอร์ด</th>
-              <th style={{ width: '6%', textAlign: 'center' }}>Dx</th>
+              <th style={{ width: '6%', textAlign: 'center' }}>Lab</th>
+              {/* <th style={{ width: '6%', textAlign: 'center' }}>Dx</th> */}
               {/* <th>อาการโดยรวม</th> */}
               <th style={{ width: '8%', textAlign: 'center' }}>สถานะ</th>
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ D/C</th>
@@ -123,7 +154,14 @@ const PatientList = () => {
                   {/* <td style={{ textAlign: 'center' }}>{moment(reg.lab_date).format('DD/MM/YYYY')}</td> */}
                   {/* <td style={{ textAlign: 'center' }}>{reg.lab_result}</td> */}
                   <td style={{ textAlign: 'center' }}>{reg.bed?.bed_name}</td>
-                  <td style={{ textAlign: 'center' }}>{reg.dx}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    {!reg.lab_result 
+                      ? renderLabResult(reg.id)
+                      : reg.lab_result === '1'
+                        ? <i className="fas fa-procedures text-danger"></i>
+                        : <i className="fas fa-bed text-success"></i>
+                    }
+                  </td>
                   {/* <td style={{ fontSize: '14px' }}>{reg.symptom}</td> */}
                   <td style={{ textAlign: 'center' }}>{regStates[reg.reg_state]}</td>
                   <td style={{ textAlign: 'center' }}>
