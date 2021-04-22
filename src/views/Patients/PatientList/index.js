@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import api from '../../../api';
-import DischargeModal from './DischargeModal';
-import LabResultModal from './LabResultModal';
+import DischargeModal from '../../Modals/DischargeModal';
+import LabResultModal from '../../Modals/LabResultModal';
 
 const regStates = ['รอผล','Covid Pos','Covid Neg','PUI','สงสัย'];
 

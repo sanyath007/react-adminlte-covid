@@ -4,9 +4,9 @@ import { Form as BsForm } from 'react-bootstrap';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import moment from "moment";
-import PatientModal from './PatientModal';
-import { calcAge, mapHWardToWard } from '../../utils';
 import api from '../../api';
+import { calcAge, mapHWardToWard } from '../../utils';
+import PatientModal from '../Modals/PatientModal';
 
 const regFroms = [
   { id: 1, name: 'ER' },
