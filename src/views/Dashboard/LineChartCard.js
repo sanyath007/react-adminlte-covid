@@ -36,7 +36,7 @@ const LineChartCard = () => {
         </h3>
       </div>
       <div className="card-body">
-        <div className="chart" id="revenue-chart" style={{ position: 'relative' }}>
+        <div className="chart" id="revenue-chart" style={{ position: 'relative', height: '65vh'  }}>
 
           <LineChart data={data} options={options} />
         
