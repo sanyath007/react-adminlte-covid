@@ -18,7 +18,7 @@ const NewPatient = () => {
   return (
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">เพิ่มข้อมูลผู้ป่วย</h3>
+        <h3 className="card-title">เพิ่มข้อมูล</h3>
       </div>
       <div className="card-body">
 
