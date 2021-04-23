@@ -45,7 +45,7 @@ const BarChartCard = () => {
         </h3>
       </div>
       <div className="card-body">
-        <div className="chart" id="revenue-chart" style={{ position: 'relative', height: '65vh'  }}>
+        <div className="chart" id="revenue-chart" style={{ position: 'relative' }}>
 
           <BarChart data={data} options={options} />
         

@@ -81,16 +81,16 @@ const Dashboard = () => {
 
       {/* Main row */}
       <div className="row">
-        <section className="col-lg-7 connectedSortable">
-          {/* Area Chart */}
+        <section className="col-lg-6 connectedSortable">
+          {/* Bar Chart */}
           <BarChartCard />
 
         </section>
         {/* Left col */}
 
         {/* Right col (We are only adding the ID to make the widgets sortable) */}
-        <section className="col-lg-5 connectedSortable">
-          {/* Donut Chart */}
+        <section className="col-lg-6 connectedSortable">
+          {/* Line Chart */}
           <LineChartCard />
 
         </section>

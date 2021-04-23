@@ -5,8 +5,8 @@ const data = {
   labels: ['1', '2', '3', '4', '5', '6'],
   datasets: [
     {
-      label: '# of votes',
-      data: [12, 19, 3, 5, 2, 3],
+      label: 'ยอดสะสม',
+      data: [3, 5, 8, 10, 11, 15],
       fill: false,
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgba(255, 99, 132, 0.2)',
@@ -41,11 +41,11 @@ const LineChartCard = () => {
       <div className="card-header">
         <h3 className="card-title">
           <i className="fas fa-chart-pie mr-1"></i>
-          Line Chart
+          ยอดผู้ป่วยสะสม
         </h3>
       </div>
       <div className="card-body">
-        <div className="chart" id="revenue-chart" style={{ position: 'relative', height: '65vh'  }}>
+        <div className="chart" id="revenue-chart" style={{ position: 'relative' }}>
 
           <LineChart data={data} options={options} />
         
