@@ -1,6 +1,6 @@
 import React from 'react'
+import BarChartCard from './BarChartCard'
 import LineChartCard from './LineChartCard'
-import PieChartCard from './PieChartCard'
 import MapCard from './MapCard'
 import QuickStatsCard from './QuickStatsCard'
 
@@ -83,7 +83,7 @@ const Dashboard = () => {
       <div className="row">
         <section className="col-lg-7 connectedSortable">
           {/* Area Chart */}
-          <LineChartCard />
+          <BarChartCard />
 
         </section>
         {/* Left col */}
@@ -91,7 +91,7 @@ const Dashboard = () => {
         {/* Right col (We are only adding the ID to make the widgets sortable) */}
         <section className="col-lg-5 connectedSortable">
           {/* Donut Chart */}
-          <PieChartCard />
+          <LineChartCard />
 
         </section>
 
