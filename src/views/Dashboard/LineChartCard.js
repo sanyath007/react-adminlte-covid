@@ -15,6 +15,15 @@ const data = {
 };
 
 const options = {
+  title: {
+    display: true,
+    text: 'Average Rainfall per month',
+    fontSize: 20
+  },
+  legend: {
+    display: true,
+    position:'right'
+  },
   scales: {
     yAxes: [
       {

@@ -29,15 +29,15 @@ const data = {
 };
 
 const options = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
+  title: {
+    display: true,
+    text: 'Average Rainfall per month',
+    fontSize: 20
   },
+  legend: {
+    display: true,
+    position: 'right'
+  }
 };
 
 const PieChartCard = () => {
