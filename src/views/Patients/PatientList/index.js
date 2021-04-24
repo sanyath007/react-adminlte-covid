@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import { Form as BsForm } from 'react-bootstrap';
 import moment from 'moment';
 import api from '../../../api';
 import DischargeModal from '../../Modals/DischargeModal';
@@ -15,8 +16,10 @@ const PatientList = () => {
   const [openLabResultModal, setOpenLabResultModal] = useState(false);
   const [labData, setLabData] = useState({});
 
-  const fetchRegistrations = async () => {
-    let res = await api.get(`/patients`);
+  const fetchRegistrations = async (qs='') => {
+    let url = qs === '' ? `/patients` : `/patients?dchdate=${qs}`;
+    let res = await api.get(url);
+    console.log(res);
 
     setRegistrations(res.data.items);
     setPager(res.data.pager);
@@ -109,7 +112,21 @@ const PatientList = () => {
       <div className="card-header">
         <div className="row">
           <div className="col-md-6">
-            {/* <h3 className="card-title">Striped Full Width Table</h3> */}
+            <div className="form-group col-md-8">
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">กรองข้อมูล</span>
+                </div>
+                <BsForm.Control
+                  as="select"
+                  name="dch_type"
+                  onChange={(e) => fetchRegistrations(e.target.value)}
+                >
+                  <option value="">แสดงทั้งหมด</option>
+                  <option value="1">แสดงเฉพาะที่ยังรักษาอยู่</option>
+                </BsForm.Control>
+              </div>
+            </div>
           </div>
           <div className="col-md-6">
             <Link to="/patients/new" className="btn btn-md bg-primary float-right">เพิ่มผู้ป่วย</Link>
