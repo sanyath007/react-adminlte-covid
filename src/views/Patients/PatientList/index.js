@@ -223,42 +223,51 @@ const PatientList = () => {
         </table>
       </div>
       <div className="card-footer clearfix">
-        {pager && (
-          <ul className="pagination pagination-md m-0 float-right">
-            <li className={`page-item ${pager.current_page === 1 && 'disabled'}`}>
-              <a
-                href="#"
-                className="page-link"
-                onClick={() => handlePaginationClick(pager.first_page_url)}
-              >&laquo;</a>
-            </li>
-            <li className={`page-item ${!pager.prev_page_url && 'disabled'}`}>
-              <a
-                href="#"
-                className="page-link"
-                onClick={() => handlePaginationClick(pager.prev_page_url)}
-              >
-                <i className="fas fa-arrow-circle-left"></i>
-              </a>
-            </li>
-            <li className={`page-item ${!pager.next_page_url && 'disabled'}`}>
-              <a
-                href="#"
-                className="page-link"
-                onClick={() => handlePaginationClick(pager.next_page_url)}
-              >
-                <i className="fas fa-arrow-circle-right"></i>
-              </a>
-            </li>
-            <li className={`page-item ${pager.current_page === pager.last_page && 'disabled'}`}>
-              <a
-                href="#"
-                className="page-link"
-                onClick={() => handlePaginationClick(pager.last_page_url)}
-              >&raquo;</a>
-            </li>
-          </ul>
-        )}
+        <div className="row">
+          <div className="col-md-6 my-auto">
+            {pager && (
+              <span>หน้า {pager.current_page} / {pager.last_page} - จำนวนทั้งหมด {pager.total} รายการ</span>
+            )}
+          </div>
+          <div className="col-md-6">
+            {pager && (
+              <ul className="pagination pagination-md m-0 float-right">
+                <li className={`page-item ${pager.current_page === 1 && 'disabled'}`}>
+                  <a
+                    href="#"
+                    className="page-link"
+                    onClick={() => handlePaginationClick(pager.first_page_url)}
+                  >&laquo;</a>
+                </li>
+                <li className={`page-item ${!pager.prev_page_url && 'disabled'}`}>
+                  <a
+                    href="#"
+                    className="page-link"
+                    onClick={() => handlePaginationClick(pager.prev_page_url)}
+                  >
+                    <i className="fas fa-arrow-circle-left"></i>
+                  </a>
+                </li>
+                <li className={`page-item ${!pager.next_page_url && 'disabled'}`}>
+                  <a
+                    href="#"
+                    className="page-link"
+                    onClick={() => handlePaginationClick(pager.next_page_url)}
+                  >
+                    <i className="fas fa-arrow-circle-right"></i>
+                  </a>
+                </li>
+                <li className={`page-item ${pager.current_page === pager.last_page && 'disabled'}`}>
+                  <a
+                    href="#"
+                    className="page-link"
+                    onClick={() => handlePaginationClick(pager.last_page_url)}
+                  >&raquo;</a>
+                </li>
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
