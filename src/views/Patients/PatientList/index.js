@@ -19,7 +19,6 @@ const PatientList = () => {
   const fetchRegistrations = async (qs='') => {
     let url = qs === '' ? `/patients` : `/patients?dchdate=${qs}`;
     let res = await api.get(url);
-    console.log(res);
 
     setRegistrations(res.data.items);
     setPager(res.data.pager);
@@ -112,8 +111,8 @@ const PatientList = () => {
       <div className="card-header">
         <div className="row">
           <div className="col-md-6">
-            <div className="form-group col-md-8">
-              <div className="input-group mb-3">
+            <div className="form-group col-md-8 mb-0 pl-0">
+              <div className="input-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text">กรองข้อมูล</span>
                 </div>
@@ -126,8 +125,9 @@ const PatientList = () => {
                   <option value="1">แสดงเฉพาะที่ยังรักษาอยู่</option>
                 </BsForm.Control>
               </div>
-            </div>
+            </div>{/* /.form-group */}
           </div>
+
           <div className="col-md-6">
             <Link to="/patients/new" className="btn btn-md bg-primary float-right">เพิ่มผู้ป่วย</Link>
           </div>
