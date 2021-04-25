@@ -32,7 +32,7 @@ const Dashboard = () => {
 
         <section className="col-lg-12 connectedSortable">
           {/* Map card */}
-          <MapCard name="Map" />
+          {/* <MapCard name="Map" /> */}
 
         </section>
 
