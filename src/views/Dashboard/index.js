@@ -1,5 +1,5 @@
 import React from 'react'
-import BarChartCard from './BarChartCard'
+import BarChartCard from './ChartCards/BarChartCard'
 import LineChartCard from './LineChartCard'
 import MapCard from './MapCard'
 import BedStats from './StatsCardList/BedStats'

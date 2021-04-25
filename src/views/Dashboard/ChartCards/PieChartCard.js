@@ -1,5 +1,5 @@
 import React from 'react';
-import PieChart from '../Charts/PieChart';
+import PieChart from '../../Charts/PieChart';
 
 const data = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
