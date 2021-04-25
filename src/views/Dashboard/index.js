@@ -1,6 +1,6 @@
 import React from 'react'
 import BarChartCard from './ChartCards/BarChartCard'
-import LineChartCard from './LineChartCard'
+import LineChartCard from './ChartCards/LineChartCard'
 import MapCard from './MapCard'
 import BedStats from './StatsCardList/BedStats'
 import PatientStats from './StatsCardList/PatientStats'

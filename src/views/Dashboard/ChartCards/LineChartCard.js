@@ -1,5 +1,5 @@
 import React from 'react';
-import LineChart from '../Charts/LineChart';
+import LineChart from '../../Charts/LineChart';
 
 const data = {
   labels: ['1', '2', '3', '4', '5', '6'],

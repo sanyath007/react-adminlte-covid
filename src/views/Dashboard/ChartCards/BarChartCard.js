@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BarChart from '../../Charts/BarChart';
+import api from '../../../api';
+import { createDataSeries } from '../../../utils';
 
-const data = {
+const initData = {
   labels: ['1', '2', '3', '4', '5', '6'],
   datasets: [
     {
@@ -36,6 +38,29 @@ const options = {
 };
 
 const BarChartCard = () => {
+  const [chartData, setChartData] = useState(initData);
+
+  const fetchData = async () => {
+    let res = await api.get(`/stats/2021-04/admit-day`);
+    let {dataSeries, categories} = createDataSeries(
+        res.data,
+        { name: 'd', value: 'num_pt'},
+        { name: 'm', value: '2021-04' }
+    );
+
+    let { data, ...rest } = chartData.datasets[0];
+    let newDataSets = [{ data: dataSeries, ...rest }];
+
+    setChartData({ 
+      labels: categories,
+      datasets: newDataSets
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -47,7 +72,7 @@ const BarChartCard = () => {
       <div className="card-body">
         <div className="chart" id="revenue-chart" style={{ position: 'relative' }}>
 
-          <BarChart data={data} options={options} />
+          <BarChart data={chartData} options={options} />
         
         </div>
       </div>
