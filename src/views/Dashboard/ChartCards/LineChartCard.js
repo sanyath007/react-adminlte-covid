@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LineChart from '../../Charts/LineChart';
+import api from '../../../api';
+import { createDataSeries } from '../../../utils';
 
-const data = {
+const initData = {
   labels: ['1', '2', '3', '4', '5', '6'],
   datasets: [
     {
@@ -36,6 +38,27 @@ const options = {
 };
 
 const LineChartCard = () => {
+  const [chartData, setChartData] = useState(initData);
+
+  const fetchData = async () => {
+    let res = await api.get(`/stats/2021-04/collect-day`);
+    
+    let categories = res.data.map(d => d.d);
+    let dataSeries = res.data.map(d => d.collect);
+
+    let { data, ...rest } = chartData.datasets[0];
+    let newDataSets = [{ data: dataSeries, ...rest }];
+
+    setChartData({ 
+      labels: categories,
+      datasets: newDataSets
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -47,7 +70,7 @@ const LineChartCard = () => {
       <div className="card-body">
         <div className="chart" id="revenue-chart" style={{ position: 'relative' }}>
 
-          <LineChart data={data} options={options} />
+          <LineChart data={chartData} options={options} />
         
         </div>
       </div>
