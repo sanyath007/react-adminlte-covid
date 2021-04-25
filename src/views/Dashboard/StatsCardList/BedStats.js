@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../api';
-import QuickStatsCard from './QuickStatsCard'
+import QuickStatsCard from '../../../components/QuickStatsCard'
 
 const BedStats = () => {
   const [stats, setStats] = useState(null);
