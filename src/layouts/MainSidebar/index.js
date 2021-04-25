@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MainSidebar = () => {
+  const { auth } = useSelector(state => state.auth);
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
@@ -12,7 +15,7 @@ const MainSidebar = () => {
           className="brand-image img-circle elevation-3"
           style={{ opacity: '.8' }}
         />
-        <span className="brand-text font-weight-light">AdminLTE 3</span>
+        <span className="brand-text font-weight-light">Covid-19 Bed MS</span>
       </Link>
 
       {/* Sidebar */}
@@ -23,7 +26,7 @@ const MainSidebar = () => {
             <img src="/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
           </div>
           <div className="info">
-            <Link to="/profile">Alexander Pierce</Link>
+            <Link to="/profile">{auth?.name}</Link>
           </div>
         </div>
 
