@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import routes from '../../routes';
 import AppHeader from '../MainHeader';
 import AppSidebar from '../MainSidebar';
 import AppFooter from '../MainFooter';
 import ContentHeader from '../ContentHeader';
+import { addBodyClass, removeBodyClass } from '../../utils';
 
 const MainLayout = () => {
   const location = useLocation();
+
+  // Set body class
+  useEffect(() => {
+    if (location.pathname === '/') {
+      removeBodyClass('login-page');
+
+      addBodyClass('sidebar-mini');
+      addBodyClass('layout-fixed');
+    }
+  }, []);
 
   return (
     <div className="wrapper">

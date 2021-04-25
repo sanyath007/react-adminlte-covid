@@ -67,14 +67,7 @@
     <script src="%PUBLIC_URL%/adminlte3/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-      $.widget.bridge('uibutton', $.ui.button)
-
-      if (window.location.href.endsWith('signin') || window.location.href.endsWith('signup')) {
-        $('body')
-          .removeClass('sidebar-mini')
-          .removeClass('layout-fixed')
-          .addClass('login-page');
-      }
+      $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 4 -->
     <script src="%PUBLIC_URL%/adminlte3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

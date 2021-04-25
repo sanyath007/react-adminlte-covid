@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Form as BsForm } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as authServices from '../../features/auth';
+import { addBodyClass, removeBodyClass } from '../../utils';
 
 const Signin = () => {
   const history = useHistory();
+  const { url } = useRouteMatch();
   const dispatch = useDispatch();
   const authSchema = Yup.object().shape({
     username: Yup.string().required('Username is required!!'),
@@ -21,6 +23,17 @@ const Signin = () => {
 
     props.resetForm();
   };
+
+  // Set body class
+  useEffect(() => {
+    if (url === '/signin') {
+      removeBodyClass('sidebar-mini');
+      removeBodyClass('layout-fixed');
+
+      addBodyClass('hold-transition');
+      addBodyClass('login-page');
+    }
+  }, []);
 
   return (
     <Formik

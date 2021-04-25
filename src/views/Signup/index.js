@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { addBodyClass, removeBodyClass } from '../../utils';
 
-const Signup = () => {
+const Signup = () => {  
+  const { url } = useRouteMatch();
+
+  // Set body class
+  useEffect(() => {
+    if (url === '/signin') {
+      removeBodyClass('sidebar-mini');
+      removeBodyClass('layout-fixed');
+
+      addBodyClass('hold-transition');
+      addBodyClass('login-page');
+    }
+  }, []);
+
   return (
     <div className="register-box">
       <div className="register-logo">
