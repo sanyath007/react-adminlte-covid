@@ -2,82 +2,17 @@ import React from 'react'
 import BarChartCard from './BarChartCard'
 import LineChartCard from './LineChartCard'
 import MapCard from './MapCard'
-import QuickStatsCard from './QuickStatsCard'
+import BedStats from './StatsCardList/BedStats'
+import PatientStats from './StatsCardList/PatientStats'
 
 const Dashboard = () => {
   return (
     <div className="container-fluid">
-      <div className="row">
-        {/* ยอดผู้ป่วย */}
-        <div className="col-lg-3 col-6">
-          <QuickStatsCard
-            bg="bg-info"
-            stat={<span>0<sup style={{ fontSize: '18px' }}>ราย</sup></span>}
-            name="ผู้ป่วยรายใหม่"
-            icon="ion-person-add"
-            url="/"
-          />
-        </div>
-        <div className="col-lg-3 col-6">
-          <QuickStatsCard
-            bg="bg-success"
-            stat={['20', <sup style={{ fontSize: '18px' }}>ราย</sup>]}
-            name="ผู้ป่วยสะสม"
-            icon="ion-stats-bars"
-            url="/"
-          />
-        </div>
-        <div className="col-lg-3 col-6">
-          <QuickStatsCard
-            bg="bg-warning"
-            stat={['44', <sup style={{ fontSize: '18px' }}>ราย</sup>]}
-            name="จำหน่วยแล้ว"
-            icon="ion-share"
-            url="/"
-          />
-        </div>
-        <div className="col-lg-3 col-6">
-          <QuickStatsCard
-            bg="bg-danger"
-            stat={['0', <sup style={{ fontSize: '18px' }}>ราย</sup>]}
-            name="เสียชีวิต"
-            icon="ion-pie-graph"
-            url="/"
-          />        
-        </div>
+      {/* ยอดผู้ป่วย */}
+      <PatientStats />
 
-        {/* เตียง */}
-        <div className="col-lg-4 col-6">
-          <QuickStatsCard
-            bg="bg-primary"
-            stat={['30', <sup style={{ fontSize: '18px' }}>ราย</sup>]}
-            name="เตียงทั้งหมด"
-            icon="ion-archive"
-            url="/"
-          />
-        </div>
-
-        <div className="col-lg-4 col-6">
-          <QuickStatsCard
-            bg="bg-danger"
-            stat={['20', <sup style={{ fontSize: '18px' }}>เตียง</sup>]}
-            name="มีผู้ป่วย"
-            icon="ion-person-stalker"
-            url="/"
-          />
-        </div>
-
-        <div className="col-lg-4 col-6">
-          <QuickStatsCard
-            bg="bg-default"
-            stat={<span>10<sup style={{ fontSize: '18px' }}>เตียง</sup></span>}
-            name="เตียงว่าง"
-            icon="ion-battery-empty"
-            url="/"
-          />        
-        </div>
-
-      </div>{/* /.row */}
+      {/* เตียง */}
+      <BedStats />
 
       {/* Main row */}
       <div className="row">
