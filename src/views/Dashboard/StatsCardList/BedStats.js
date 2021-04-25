@@ -20,7 +20,7 @@ const BedStats = () => {
         <QuickStatsCard
           key="all"
           bg="bg-primary"
-          stat={<span>{stats?.all_beds}<sup style={{ fontSize: '18px' }}>ราย</sup></span>}
+          stat={<span>{stats?.all_beds}<sup style={{ fontSize: '18px' }}>เตียง</sup></span>}
           name="เตียงทั้งหมด"
           icon="ion-archive"
           url="/"
