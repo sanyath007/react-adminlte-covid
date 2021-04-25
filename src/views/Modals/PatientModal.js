@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  Form as BsForm,
   Button,
   Col,
   Row,
@@ -15,8 +16,8 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
   const [ips, setIps] = useState([]);
   const [pager, setPager] = useState(null);
 
-  const fetchIpAll = async () => {
-    let res = await api.get('/ips');
+  const fetchIpAll = async (dchdate='?dchdate=1', ward='') => {
+    let res = await api.get(`/ips${dchdate}${ward}`);
 
     setIps(res.data.items);
     setPager(res.data.pager);
@@ -46,7 +47,33 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
     >
       <Modal.Header closeButton>กรุณาเลือกผู้ป่วย</Modal.Header>
       <Modal.Body>
-        <table className="table table-bordered">
+        <Row>
+          <Col>
+            <div className="form-group col-md-6 pl-0">
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">กรองข้อมูล</span>
+                </div>
+                <BsForm.Control
+                  as="select"
+                  name="dch_type"
+                  onChange={(e) => {
+                    let ward = e.target.value === '' ? '' : `&ward=${e.target.value}`;
+
+                    fetchIpAll('?dchdate=1', ward);
+                  }}
+                >
+                  <option value="">แสดงทั้งหมด</option>
+                  <option value="06">วอร์ดชั้น 1</option>
+                  <option value="00">วอร์ดชั้น 10</option>
+                  <option value="05">วอร์ดชั้น ICU</option>
+                </BsForm.Control>
+              </div>
+            </div>{/* /.form-group */}
+          </Col>
+        </Row>
+
+        <table className="table table-bordered table-striped table-sm">
           <thead>
             <tr>
               <th style={{ width: '3%', textAlign: 'center' }}>#</th>
@@ -78,10 +105,12 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
                   {ip.hanstat?.pdx}
                 </td>
                 <td style={{ textAlign: 'center' }}>
-                  <Button onClick={() => {
-                    onSelected(ip);
-                    hideModal();
-                  }}
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      onSelected(ip);
+                      hideModal();
+                    }}
                   >
                     เลือก
                   </Button>
@@ -92,13 +121,11 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
         </table>
 
         <Row>
-          <Col>
-            จำนวนทั้งหมด
-            <span style={{ margin: 'auto 5px', fontWeight: 'bold' }}>{pager?.total}</span>
-            ราย
+          <Col className="my-auto">
+            <span>หน้า {pager?.current_page} / {pager?.last_page} - จำนวนทั้งหมด {pager?.total} ราย</span>
           </Col>
           <Col>
-            <Pagination className="float-right">
+            <Pagination className="float-right mb-0">
               <Pagination.First
                 onClick={() => handlePaginationClick(pager?.first_page_url)}
                 disabled={pager?.current_page === 1}
@@ -118,6 +145,7 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
             </Pagination>
           </Col>
         </Row>
+
       </Modal.Body>
     </Modal>
   );
