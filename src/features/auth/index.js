@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import jwt from 'jwt-decode';
 import api from '../../api';
 
@@ -17,6 +18,8 @@ const authSlice = createSlice({
 
       state.auth = decoded.sub;
       localStorage.setItem('access_token', JSON.stringify(action.payload));
+
+      toast.success('Signin successfully!!');
     },
     logoutSucces: (state) => {
       state.auth = null;
