@@ -7,10 +7,7 @@ const NewPatient = () => {
   const history = useHistory();
 
   const handleSubmit = async (data) => {
-    console.log(data);
-
     let res = await api.post('/api/patients', data);
-    console.log(res);
 
     history.push('/patients');
   };
