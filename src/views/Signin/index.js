@@ -30,7 +30,6 @@ const Signin = () => {
       removeBodyClass('sidebar-mini');
       removeBodyClass('layout-fixed');
 
-      addBodyClass('hold-transition');
       addBodyClass('login-page');
     }
   }, []);
