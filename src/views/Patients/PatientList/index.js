@@ -16,9 +16,8 @@ const PatientList = () => {
   const [openLabResultModal, setOpenLabResultModal] = useState(false);
   const [labData, setLabData] = useState({});
 
-  const fetchRegistrations = async (qs='') => {
-    let url = qs === '' ? `/api/patients` : `/api/patients?dchdate=${qs}`;
-    let res = await api.get(url);
+  const fetchRegistrations = async (qs='1') => {
+    let res = await api.get(`/api/patients?dchdate=${qs}`);
 
     setRegistrations(res.data.items);
     setPager(res.data.pager);
@@ -121,8 +120,8 @@ const PatientList = () => {
                   name="dch_type"
                   onChange={(e) => fetchRegistrations(e.target.value)}
                 >
-                  <option value="">แสดงทั้งหมด</option>
                   <option value="1">แสดงเฉพาะที่ยังรักษาอยู่</option>
+                  <option value="0">แสดงทั้งหมด</option>
                 </BsForm.Control>
               </div>
             </div>{/* /.form-group */}
