@@ -6,7 +6,7 @@ const Ward = ({ ward }) => {
   const [beds, setBeds] = useState([]);
 
   const fetchBedsByWard = async () => {
-    let res = await api.get(`/beds/ward/${ward.ward_id}/0`);
+    let res = await api.get(`/api/beds/ward/${ward.ward_id}/0`);
 
     setBeds(res.data);
   };

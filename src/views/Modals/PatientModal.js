@@ -17,7 +17,7 @@ function PatientModal({ isOpen, hideModal, onSelected }) {
   const [pager, setPager] = useState(null);
 
   const fetchIpAll = async (dchdate='?dchdate=1', ward='') => {
-    let res = await api.get(`/ips${dchdate}${ward}`);
+    let res = await api.get(`/api/ips${dchdate}${ward}`);
 
     setIps(res.data.items);
     setPager(res.data.pager);

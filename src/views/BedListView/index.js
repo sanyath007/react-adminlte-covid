@@ -6,7 +6,7 @@ const BedListView = () => {
   const [wards, setWards] = useState([]);
 
   const fetchWards = async () => {
-    let res = await api.get('/wards');
+    let res = await api.get('/api/wards');
 
     setWards(res.data);
   };

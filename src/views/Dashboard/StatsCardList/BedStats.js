@@ -5,7 +5,7 @@ import QuickStatsCard from '../../../components/QuickStatsCard'
 const BedStats = () => {
   const [stats, setStats] = useState(null);
   const fetchStats = async () => {
-    let res = await api.get(`/stats/04/beds`);
+    let res = await api.get(`/api/stats/04/beds`);
 
     setStats(res.data)
   };

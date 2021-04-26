@@ -17,7 +17,7 @@ const PatientList = () => {
   const [labData, setLabData] = useState({});
 
   const fetchRegistrations = async (qs='') => {
-    let url = qs === '' ? `/patients` : `/patients?dchdate=${qs}`;
+    let url = qs === '' ? `/api/patients` : `/api/patients?dchdate=${qs}`;
     let res = await api.get(url);
 
     setRegistrations(res.data.items);
@@ -36,7 +36,7 @@ const PatientList = () => {
   };
 
   const fetchIpByAn = async (reg) => {
-    let res = await api.get(`/ips/${reg.an}`);
+    let res = await api.get(`/api/ips/${reg.an}`);
 
     let { dchtype, dchdate, dchtime, hanstat } = res.data;
 
@@ -49,7 +49,7 @@ const PatientList = () => {
   };
 
   const onDischarge = async (data) => {
-    let res = await api.put(`/registrations/discharge/${data.id}`, data);
+    let res = await api.put(`/api/registrations/discharge/${data.id}`, data);
 
     updateRegistrations(data.id, res.data.data);
   };
@@ -67,7 +67,7 @@ const PatientList = () => {
   };
 
   const onLabResultSubmit = async (data) => {
-    let res = await api.put(`/registrations/lab-result/${data.id}`, data);
+    let res = await api.put(`/api/registrations/lab-result/${data.id}`, data);
     console.log(res);
 
     updateRegistrations(data.id, res.data.data);

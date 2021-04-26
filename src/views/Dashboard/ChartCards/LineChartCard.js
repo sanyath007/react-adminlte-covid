@@ -41,7 +41,7 @@ const LineChartCard = () => {
   const [chartData, setChartData] = useState(initData);
 
   const fetchData = async () => {
-    let res = await api.get(`/stats/2021-04/collect-day`);
+    let res = await api.get(`/api/stats/2021-04/collect-day`);
     
     let categories = res.data.map(d => d.d);
     let dataSeries = res.data.map(d => d.collect);

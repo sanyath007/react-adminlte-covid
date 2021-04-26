@@ -72,13 +72,13 @@ const FormPatient = ({ patient, handleSubmit }) => {
   };
 
   const fetchWards = async () => {
-    let res = await api.get('/wards');
+    let res = await api.get('/api/wards');
 
     setWards(res.data);
   };
 
   const fetchBedsByWard = async (ward, status=1) => {
-    let res = await api.get(`/beds/ward/${ward}/${status}`);
+    let res = await api.get(`/api/beds/ward/${ward}/${status}`);
 
     setBeds(res.data);
   };

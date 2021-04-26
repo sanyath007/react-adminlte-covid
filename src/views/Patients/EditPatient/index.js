@@ -19,7 +19,7 @@ const EditPatient = () => {
   };
 
   const fetchRegistration = async (_id) => {
-    let res = await api.get(`/registrations/${_id}`);
+    let res = await api.get(`/api/registrations/${_id}`);
 
     setPatient(res.data);
   };

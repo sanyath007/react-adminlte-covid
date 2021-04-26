@@ -41,7 +41,7 @@ const BarChartCard = () => {
   const [chartData, setChartData] = useState(initData);
 
   const fetchData = async () => {
-    let res = await api.get(`/stats/2021-04/admit-day`);
+    let res = await api.get(`/api/stats/2021-04/admit-day`);
     let {dataSeries, categories} = createDataSeries(
         res.data,
         { name: 'd', value: 'num_pt'},

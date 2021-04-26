@@ -9,7 +9,7 @@ const NewPatient = () => {
   const handleSubmit = async (data) => {
     console.log(data);
 
-    let res = await api.post('/patients', data);
+    let res = await api.post('/api/patients', data);
     console.log(res);
 
     history.push('/patients');

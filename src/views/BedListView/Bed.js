@@ -20,7 +20,7 @@ const Bed = ({ bed }) => {
   };
 
   const fetchBedUsed = async () => {
-    let res = await api.get(`/beds/${bed?.bed_id}/used`);
+    let res = await api.get(`/api/beds/${bed?.bed_id}/used`);
     
     setUsed(res.data.used)
     setStatus(regStates.find(state => state.id.toString() === res.data.used?.reg_state));
