@@ -5,6 +5,7 @@ import moment from 'moment';
 import { calcAge } from '../../utils';
 
 function RegisDetailModal({ isOpen, hideModal, regisData }) {
+  console.log(regisData);
   return (
     <Modal
       show={isOpen}
@@ -41,10 +42,12 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
             <tr>
               <th>วันที่ส่ง Lab</th>
               <td>
-                {moment(regisData?.lab_date).format('DD/MM/YYYY')}
+                {regisData?.lab_date && moment(regisData?.lab_date).format('DD/MM/YYYY')}
               </td>
               <th>ผล Lab</th>
-              <td>{regisData?.lab_result}</td>
+              <td>
+                {regisData?.lab_result ? 'ยังไม่ลงผล Lab' : regisData?.lab_result === '1' ? 'Positive' : 'Negative'}
+              </td>
             </tr>
             <tr>
               <th>อาการ</th>

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 const api = axios.create({
-  baseURL: 'http://localhost/public_html/slim3-covid-api/public/'
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 api.interceptors.request.use((config) => {
@@ -18,9 +18,10 @@ api.interceptors.request.use((config) => {
 // api.interceptors.response.use((res) => {
 //   return res;
 // }, (err) => {
-//   if (err.message === 'Network Error' && !err.response) {
-//     toast.error('Network error !!');
-//   }
+  /** Check on network error */
+  // if (err.message === 'Network Error' && !err.response) {
+  //   toast.error('Network error !!');
+  // }
 
   /** Get original request */
   // const originalRequest = err.config;

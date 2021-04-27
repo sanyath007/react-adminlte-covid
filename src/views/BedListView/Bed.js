@@ -15,10 +15,6 @@ const Bed = ({ bed }) => {
   const [used, setUsed] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
-  const onHideModal = () => {
-    setOpenModal(false);
-  };
-
   const fetchBedUsed = async () => {
     let res = await api.get(`/api/beds/${bed?.bed_id}/used`);
     
@@ -85,7 +81,7 @@ const Bed = ({ bed }) => {
 
       <RegisDetailModal
         isOpen={openModal}
-        hideModal={onHideModal}
+        hideModal={() => setOpenModal(false)}
         regisData={used}
       />
     </div>
