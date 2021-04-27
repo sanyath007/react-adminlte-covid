@@ -19,7 +19,7 @@ const NewBed = () => {
   return (
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">เพิ่มข้อมูล</h3>
+        <h3 className="card-title">เพิ่มข้อมูลเตียง</h3>
       </div>
       <div className="card-body">
 

@@ -38,13 +38,13 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
     <Formik
       enableReinitialize={bed}
       initialValues={{
-        bed_id: '',
-        bed_no: '',
-        bed_name: '',
-        description: '',
-        bed_type: '',
-        ward: '',
-        bed_status: bed ? bed?.bed_status : true
+        bed_id: bed ? bed?.bed_id : '',
+        bed_no: bed ? bed?.bed_no : '',
+        bed_name: bed ? bed?.bed_name : '',
+        description: bed ? (bed?.description ? bed?.description : '') : '',
+        bed_type: bed ? bed?.bed_type : '',
+        ward: bed ? bed?.ward : '',
+        bed_status: bed ? (bed?.bed_status === '0' ? true : false) : false
       }}
       validationSchema={bedSchema}
       onSubmit={onSubmit}
