@@ -1,11 +1,23 @@
-import React from 'react'
+import React from 'react';
+import FormBed from '../Form';
 
 const EditBed = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  const handleSubmit = async () => {
+    console.log('');
+  };
+  
+  return (
+    <div className="card">
+      <div className="card-header">
+        <h3 className="card-title">เพิ่มข้อมูล</h3>
+      </div>
+      <div className="card-body">
 
-export default EditBed
+        <FormBed handleSubmit={handleSubmit} />
+
+      </div>
+    </div>
+  );
+};
+
+export default EditBed;
