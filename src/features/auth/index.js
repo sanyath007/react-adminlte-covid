@@ -19,7 +19,7 @@ const authSlice = createSlice({
       state.auth = decoded.sub;
       localStorage.setItem('access_token', JSON.stringify(action.payload));
 
-      toast.success('Signin successfully!!');
+      toast.success('Signin successfully !!!', { autoClose: 1000, hideProgressBar: true });
     },
     logoutSucces: (state) => {
       state.auth = null;

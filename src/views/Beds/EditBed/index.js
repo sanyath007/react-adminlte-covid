@@ -21,11 +21,11 @@ const EditBed = () => {
     let res = await api.put(`/api/beds/${data.bed_id}`, { ...bed, bed_status: bed_status ? '0' : '1'});
 
     if (res.data.status === 1) {
-      toast.success('แก้ไขข้อมูลเตียงเรียบร้อยแล้ว !!!');
+      toast.success('แก้ไขข้อมูลเตียงเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
 
       history.push('/beds')
     } else {
-      toast.error('พบข้อผิดพลาด ไม่สามารถแก้ไขข้อมูลได้ !!!')
+      toast.error('พบข้อผิดพลาด ไม่สามารถแก้ไขข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true })
     }
   };
   

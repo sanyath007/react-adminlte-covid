@@ -10,9 +10,9 @@ const NewBed = () => {
     let res = await api.post('/api/beds', { ...bed, bed_status: bed_status ? '0' : '1'});
 
     if (res.data.status === 1) {
-      toast.success('บันทึกข้อมูลเตียงเรียบร้อยแล้ว !!!');
+      toast.success('บันทึกข้อมูลเตียงเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
     } else {
-      toast.error('พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ !!!')
+      toast.error('พบข้อผิดพลาด ไม่สามารถบันทึกข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true })
     }
   };
 
