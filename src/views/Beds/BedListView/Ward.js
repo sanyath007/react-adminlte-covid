@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Bed from './Bed';
-import api from '../../api';
+import api from '../../../api';
 
 const Ward = ({ ward }) => {
   const [beds, setBeds] = useState([]);

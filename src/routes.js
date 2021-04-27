@@ -6,7 +6,10 @@ import EditPatient from './views/Patients/EditPatient';
 import Registrations from './views/Registrations';
 import RegistrationList from './views/Registrations/RegistrationList';
 import NewRegistration from './views/Registrations/NewRegistration';
-import BedListView from './views/BedListView';
+import Beds from './views/Beds';
+import BedListView from './views/Beds/BedListView';
+import NewBed from './views/Beds/NewBed';
+import EditBed from './views/Beds/EditBed';
 import Profile from './views/Profile';
 import Charts from './views/Charts';
 import ChartJS from './views/Charts/ChartJS';
@@ -21,7 +24,7 @@ const routes = [
     name: 'Patients',
     component: Patients,
     routes: [
-      { path: '/', name: 'รายชื่อผู้ป่วย', component: PatientList },
+      { path: '/', name: 'รายการผู้ป่วย', component: PatientList },
       { path: '/new', name: 'เพิ่มผู้ป่วย', component: NewPatient },
       { path: '/edit/:id', name: 'แก้ไขผู้ป่วย', component: EditPatient },
     ]
@@ -35,7 +38,16 @@ const routes = [
       { path: '/new', name: 'ลงทะเบียนผู้ป่วย', component: NewRegistration },
     ]
   },
-  { path: '/beds', name: 'Beds', component: BedListView },
+  {
+    path: '/beds',
+    name: 'Beds',
+    component: Beds,
+    routes: [
+      { path: '/', name: 'รายการเตียง', component: BedListView },
+      { path: '/new', name: 'เพิ่มเตียง', component: NewBed },
+      { path: '/edit/:id', name: 'แก้ไขเตียง', component: EditBed },
+    ]
+  },
   { path: '/profile', exact: true, name: 'Profile', component: Profile },
   {
     path: '/charts', 

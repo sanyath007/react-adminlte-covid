@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api';
-import RegisDetailModal from '../Modals/RegisDetailModal';
+import api from '../../../api';
+import RegisDetailModal from '../../Modals/RegisDetailModal';
 
 const regStates = [
   { id: 0, name: 'รอผล' },
