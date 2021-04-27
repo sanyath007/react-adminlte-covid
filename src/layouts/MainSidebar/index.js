@@ -57,6 +57,14 @@ const MainSidebar = () => {
                 </p>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/wards" className="nav-link">
+                <i className="nav-icon fas fa-hospital"></i>
+                <p>
+                  วอร์ด
+                </p>
+              </Link>
+            </li>
             {/* <li className="nav-item">
               <Link to="/profile" className="nav-link">
                 <i className="nav-icon fas fa-user"></i>
