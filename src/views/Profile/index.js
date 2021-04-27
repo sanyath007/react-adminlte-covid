@@ -12,7 +12,7 @@ const Profile = () => {
               <div className="text-center">
                 <img 
                   className="profile-user-img img-fluid img-circle"
-                  src="/img/user4-128x128.jpg"
+                  src={`${process.env.PUBLIC_URL}/img/user4-128x128.jpg`}
                   alt="User profile picture"
                 />
               </div>
@@ -100,7 +100,7 @@ const Profile = () => {
                     <div className="user-block">
                       <img
                         className="img-circle img-bordered-sm"
-                        src="/img/user1-128x128.jpg"
+                        src={`${process.env.PUBLIC_URL}/img/user1-128x128.jpg`}
                         alt="user image"
                       />
                       <span className="username">
@@ -136,7 +136,7 @@ const Profile = () => {
                     <div className="user-block">
                       <img
                         className="img-circle img-bordered-sm"
-                        src="/img/user7-128x128.jpg"
+                        src={`${process.env.PUBLIC_URL}/img/user7-128x128.jpg`}
                         alt="User Image"
                       />
                       <span className="username">
@@ -169,7 +169,7 @@ const Profile = () => {
                     <div className="user-block">
                       <img
                         className="img-circle img-bordered-sm"
-                        src="/img/user6-128x128.jpg"
+                        src={`${process.env.PUBLIC_URL}/img/user6-128x128.jpg`}
                         alt="User Image"
                       />
                       <span className="username">
@@ -180,17 +180,17 @@ const Profile = () => {
                     </div>
                     <div className="row mb-3">
                       <div className="col-sm-6">
-                        <img className="img-fluid" src="/img/photo1.png" alt="Photo" />
+                        <img className="img-fluid" src={`${process.env.PUBLIC_URL}/img/photo1.png`} alt="Photo" />
                       </div>
                       <div className="col-sm-6">
                         <div className="row">
                           <div className="col-sm-6">
-                            <img className="img-fluid mb-3" src="/img/photo2.png" alt="Photo" />
-                            <img className="img-fluid" src="/img/photo3.jpg" alt="Photo" />
+                            <img className="img-fluid mb-3" src={`${process.env.PUBLIC_URL}/img/photo2.png`} alt="Photo" />
+                            <img className="img-fluid" src={`${process.env.PUBLIC_URL}/img/photo3.jpg`} alt="Photo" />
                           </div>
                           <div className="col-sm-6">
-                            <img className="img-fluid mb-3" src="/img/photo4.jpg" alt="Photo" />
-                            <img className="img-fluid" src="/img/photo1.png" alt="Photo" />
+                            <img className="img-fluid mb-3" src={`${process.env.PUBLIC_URL}/img/photo4.jpg`} alt="Photo" />
+                            <img className="img-fluid" src={`${process.env.PUBLIC_URL}/img/photo1.png`} alt="Photo" />
                           </div>
                         </div>
                       </div>
