@@ -10,6 +10,10 @@ import Beds from './views/Beds';
 import BedListView from './views/Beds/BedListView';
 import NewBed from './views/Beds/NewBed';
 import EditBed from './views/Beds/EditBed';
+import Wards from './views/Wards';
+import WardListView from './views/Wards/WardListView';
+import NewWard from './views/Wards/NewWard';
+import EditWard from './views/Wards/EditWard';
 import Profile from './views/Profile';
 import Charts from './views/Charts';
 import ChartJS from './views/Charts/ChartJS';
@@ -46,6 +50,16 @@ const routes = [
       { path: '/', name: 'รายการเตียง', component: BedListView },
       { path: '/new', name: 'เพิ่มเตียง', component: NewBed },
       { path: '/edit/:id', name: 'แก้ไขเตียง', component: EditBed },
+    ]
+  },
+  {
+    path: '/wards',
+    name: 'Wards',
+    component: Wards,
+    routes: [
+      { path: '/', name: 'รายการวอร์ด', component: WardListView },
+      { path: '/new', name: 'เพิ่มวอร์ด', component: NewWard },
+      { path: '/edit/:id', name: 'แก้ไขวอร์ด', component: EditWard },
     ]
   },
   { path: '/profile', exact: true, name: 'Profile', component: Profile },

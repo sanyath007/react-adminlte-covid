@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
-const Beds = (props) => {
+const Wards = (props) => {
   const { url } = useRouteMatch();
 
   return (
@@ -24,4 +24,4 @@ const Beds = (props) => {
   );
 };
 
-export default Beds;
+export default Wards;
