@@ -5,7 +5,6 @@ import moment from 'moment';
 import { calcAge } from '../../utils';
 
 function RegisDetailModal({ isOpen, hideModal, regisData }) {
-  console.log(regisData);
   return (
     <Modal
       show={isOpen}
