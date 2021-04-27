@@ -18,7 +18,7 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
           <tbody>
             <tr>
               <th style={{ width: '15%' }}>AN</th>
-              <td>{regisData?.an || ''}</td>
+              <td style={{ width: '35%' }}>{regisData?.an || ''}</td>
               <th style={{ width: '15%' }}>HN</th>
               <td>{regisData?.hn}</td>
             </tr>
@@ -41,11 +41,11 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
             <tr>
               <th>วันที่ส่ง Lab</th>
               <td>
-                {regisData?.lab_date && moment(regisData?.lab_date).format('DD/MM/YYYY')}
+                {regisData?.lab_date ? moment(regisData?.lab_date).format('DD/MM/YYYY') : 'ยังไม่ลงผล Lab'}
               </td>
               <th>ผล Lab</th>
               <td>
-                {regisData?.lab_result ? 'ยังไม่ลงผล Lab' : regisData?.lab_result === '1' ? 'Positive' : 'Negative'}
+                {regisData?.lab_result ? regisData?.lab_result === '1' ? 'Positive' : 'Negative' : 'ยังไม่ลงผล Lab'}
               </td>
             </tr>
             <tr>
