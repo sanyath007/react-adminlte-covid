@@ -26,6 +26,8 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
 
   const onSubmit = (values, props) => {
     handleSubmit(values);
+
+    props.resetForm();
   };
 
   useEffect(() => {
@@ -173,7 +175,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                         name="bed_status"
                         checked={formik.values.bed_status}
                         onChange={(e) => formik.setFieldValue('bed_status', e.target.checked)}
-                        label="สถานะห้อง (ว่าง, ไม่ว่าง)"
+                        label={`สถานะห้อง (${formik.values.bed_status ? 'ว่าง' : 'ไม่ว่าง'})`}
                       />
                     </div>{/* /.form-group */}
                   </div>{/* /.col-sm-2 */}
