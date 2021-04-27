@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={'/covid19-bedms'}>
       <Switch>
         <Route exact path="/signin" name="Sign In Page" render={props => <Signin {...props} />} />
         <Route exact path="/signup" name="Sign Up Page" render={props => <Signup {...props} />} />
