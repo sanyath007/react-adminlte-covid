@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import FormPatient from '../Form';
 import api from '../../../api';
 
@@ -12,10 +13,16 @@ const EditPatient = () => {
   const handleSubmit = async (data) => {
     console.log(data);
 
-    // let res = await api.post('/patients', data);
-    // console.log(res);
+    try {
+      let res = await api.put(`/patients/${data.id}`, data);
 
-    // history.push('/patients');
+      toast.success('แก้ไขข้อมูลผู้ป่วยเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
+
+      history.push('/patients');
+    } catch (error) {
+      toast.error('พบข้อผิดพลาด ไม่สามารถแก้ไขข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true });
+    }
+
   };
 
   const fetchRegistration = async (_id) => {
