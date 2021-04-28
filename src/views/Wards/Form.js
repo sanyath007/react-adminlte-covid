@@ -6,7 +6,6 @@ import api from '../../api';
 
 const FormWard = ({ ward, handleSubmit }) => {
   const [buildings, setBuildings] = useState([]);
-  const [floors, setFloors] = useState([]);
 
   const fetchBuildings = async () => {
     let res = await api.get('/api/buildings');
@@ -22,17 +21,21 @@ const FormWard = ({ ward, handleSubmit }) => {
     fetchBuildings();
   }, []);
 
+  console.log(ward);
+
   return (
     <Formik
+      enableReinitialize={ward}
       initialValues={{
-        ward_no: '',
-        ward_name: '',
-        ward_tel: '',
-        ward_head_name: '',
-        ward_head_tel: '',
-        building: '',
-        floor: 1,
-        bed_max: 20,
+        ward_id: ward ? ward.ward_id : '',
+        ward_no: ward ? ward.ward_no : '',
+        ward_name: ward ? ward.ward_name : '',
+        ward_tel: ward ? ward.ward_tel : '',
+        ward_head_name: ward ? ward.ward_head_name : '',
+        ward_head_tel: ward ? ward.ward_head_tel : '',
+        building: ward ? ward.building : '',
+        floor: ward ? ward.floor : 1,
+        bed_max: ward ? ward.bed_max : 20,
       }}
       onSubmit={onSubmit}
     >
