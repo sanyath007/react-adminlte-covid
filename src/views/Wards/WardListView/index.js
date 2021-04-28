@@ -46,7 +46,7 @@ const WardListView = () => {
                 </div>
 
                 <div className="col-md-6">
-                  <Link to="/beds/new" className="btn btn-md bg-primary float-right">เพิ่มเตียง</Link>
+                  <Link to="/wards/new" className="btn btn-md bg-primary float-right">เพิ่มวอร์ด</Link>
                 </div>
               </div>
             </div>
