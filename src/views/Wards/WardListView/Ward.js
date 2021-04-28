@@ -14,6 +14,11 @@ const Ward = ({ ward }) => {
     setCount(stays?.length);
   };
 
+  const onDelete = async (e) => {
+    e.preventDefault();
+    // TODO: to delete ward
+  };
+
   useEffect(() => {
     fetchWardPatients();
   }, [ward]);
@@ -36,7 +41,7 @@ const Ward = ({ ward }) => {
               <Link to={`/wards/edit/${ward?.ward_id}`} className="text-warning">
                 <i className="fas fa-edit"></i>
               </Link>
-              <a href="#" className="text-danger mx-2">
+              <a href="#" className="text-danger mx-2" onClick={(e) => onDelete(e)}>
                 <i className="fas fa-trash-alt"></i>
               </a>
             </div>

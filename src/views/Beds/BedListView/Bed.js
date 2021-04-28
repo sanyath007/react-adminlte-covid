@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../../api';
 import RegisDetailModal from '../../Modals/RegisDetailModal';
 
@@ -22,14 +23,9 @@ const Bed = ({ bed }) => {
     setStatus(regStates.find(state => state.id.toString() === res.data.used?.reg_state));
   };
 
-  const onDischarge = async (e) => {
+  const onDelete = async (e) => {
     e.preventDefault();
-    // TODO: to discharge patient from bed when D/C btn is clicked
-  };
-
-  const onAdmit = async (e) => {
-    e.preventDefault();
-    // TODO: to admit patient without register from bed when admit btn is clicked
+    // TODO: to delete bed
   };
 
   useEffect(() => {
@@ -54,28 +50,18 @@ const Bed = ({ bed }) => {
             ) : 'ว่าง'
           }
         </span>
-        <div style={{ flex: '1', justifyContent: 'space-between', marginTop: '5px' }}>
+        
+        <div style={{ flex: '1', marginTop: '5px', textAlign: 'right' }}>
+          <Link to={`/beds/edit/${bed?.bed_id}`} className="text-warning">
+            <i className="fas fa-edit"></i>
+          </Link>
+
           {bed?.bed_status === '0' && (
-            <a
-              href="#"
-              className="btn btn-sm text-primary float-right"
-              onClick={(e) => onAdmit(e)}
-            >
-              <i className="fas fa-hospital-user mr-1"></i>
-              Admit
+            <a href="#" className="text-danger mx-2" onClick={(e) => onDelete(e)}>
+              <i className="fas fa-trash-alt"></i>
             </a>
           )}
-          
-          {bed?.bed_status === '1' && (
-            <a
-              href="#"
-              className="btn btn-sm text-danger float-right"
-              onClick={(e) => onDischarge(e)}
-            >
-              D/C
-              <i className="fas fa-sign-out-alt ml-1"></i>
-            </a>
-          )}
+
         </div>
       </div>
 

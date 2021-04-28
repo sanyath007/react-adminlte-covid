@@ -47,6 +47,11 @@ const PatientList = () => {
     }
   };
 
+  const onDelete = async (e) => {
+    e.preventDefault();
+    // TODO: to delete registrations data
+  };
+
   const onDischarge = async (data) => {
     let res = await api.put(`/api/registrations/discharge/${data.id}`, data);
 
@@ -201,15 +206,15 @@ const PatientList = () => {
                   {/* <td style={{ textAlign: 'center' }}>{reg.adm_day}</td> */}
                   {/* <td>{reg.remark}</td> */}
                   <td style={{ textAlign: 'center' }}>
-                    <Link className="btn btn-sm bg-info" to="/">
+                    {/* <Link className="btn btn-sm bg-info" to="/">
                       <i className="fas fa-search"></i>
-                    </Link>
+                    </Link> */}
                     {!reg.dch_date && (
                       <>
                         <Link className="btn btn-sm bg-warning" to={`/patients/edit/${reg.id}`}>
                           <i className="fas fa-edit"></i>
                         </Link>
-                        <Link className="btn btn-sm bg-danger" to="/">
+                        <Link className="btn btn-sm bg-danger mx-1" to="/">
                           <i className="fas fa-trash-alt"></i>
                         </Link>
                       </>
