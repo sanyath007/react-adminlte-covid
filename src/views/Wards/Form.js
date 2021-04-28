@@ -7,6 +7,21 @@ import api from '../../api';
 const FormWard = ({ ward, handleSubmit }) => {
   const [buildings, setBuildings] = useState([]);
 
+  const wardSchema = Yup.object().shape({
+    ward_no: Yup.number('กรุณาระบุชั้นเป็นตัวเลข').required('กรุณาระบุเลขที่วอร์ดก่อน !!!'),
+    ward_name: Yup.string().required('กรุณาระบุชื่อวอร์ดก่อน !!!'),
+    ward_tel: Yup.string().required('กรุณาระบุเบอร์ภายในวอร์ดก่อน !!!'),
+    // ward_head_name: Yup.string().required('กรุณาระบุชื่อ-สกุลหัวหน้าวอร์ดก่อน !!!'),
+    // ward_head_tel: Yup.string().required('กรุณาระบุเบอร์ติดต่อหัวหน้าวอร์ดก่อน !!!'),
+    building: Yup.string().required('กรุณาระบุอาคารก่อน !!!'),
+    floor: Yup.number()
+              .min(1, 'ชั้นต้องมากกว่า 1 !!!')
+              .required('กรุณาระบุชั้นก่อน !!!'),
+    bed_max: Yup.number()
+                .min(1, 'จำนวนเตียงต้องมากกว่า 1 !!!')
+                .required('กรุณาระบุจำนวนเตียงวอร์ดก่อน !!!'),
+  });
+
   const fetchBuildings = async () => {
     let res = await api.get('/api/buildings');
 
@@ -21,22 +36,21 @@ const FormWard = ({ ward, handleSubmit }) => {
     fetchBuildings();
   }, []);
 
-  console.log(ward);
-
   return (
     <Formik
       enableReinitialize={ward}
       initialValues={{
-        ward_id: ward ? ward.ward_id : '',
-        ward_no: ward ? ward.ward_no : '',
-        ward_name: ward ? ward.ward_name : '',
-        ward_tel: ward ? ward.ward_tel : '',
-        ward_head_name: ward ? ward.ward_head_name : '',
-        ward_head_tel: ward ? ward.ward_head_tel : '',
-        building: ward ? ward.building : '',
-        floor: ward ? ward.floor : 1,
-        bed_max: ward ? ward.bed_max : 20,
+        ward_id: ward ? ward?.ward_id : '',
+        ward_no: ward ? ward?.ward_no : '',
+        ward_name: ward ? ward?.ward_name : '',
+        ward_tel: ward ? ward?.ward_tel : '',
+        ward_head_name: ward ? ward?.ward_head_name || '' : '',
+        ward_head_tel: ward ? ward?.ward_head_tel || '' : '',
+        building: ward ? ward?.building : '',
+        floor: ward ? ward?.floor : 1,
+        bed_max: ward ? ward?.bed_max : 20,
       }}
+      validationSchema={wardSchema}
       onSubmit={onSubmit}
     >
       {(formik) => {
