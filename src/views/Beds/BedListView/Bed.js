@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../../../api';
 import RegisDetailModal from '../../Modals/RegisDetailModal';
 
@@ -11,7 +12,7 @@ const regStates = [
   { id: 4, name: 'สงสัย' },
 ];
 
-const Bed = ({ bed }) => {
+const Bed = ({ bed, handleDelete }) => {
   const [status, setStatus] = useState(null);
   const [used, setUsed] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -23,9 +24,21 @@ const Bed = ({ bed }) => {
     setStatus(regStates.find(state => state.id.toString() === res.data.used?.reg_state));
   };
 
-  const onDelete = async (e) => {
+  const onDelete = async (e, id) => {
     e.preventDefault();
-    // TODO: to delete bed
+
+    if (window.confirm(`คุณต้องการจะลบข้อมูลเตียงรหัส ${id} ใช่หรือไม่ ?`)) {
+      try {
+        let res = await api.delete(`/api/beds/${id}`);
+  
+        toast.success('แก้ไขข้อมูลผู้ป่วยเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
+        
+        /** fetch new all beds of ward */
+        handleDelete();
+      } catch (error) {
+        toast.error('พบข้อผิดพลาด ไม่สามารถแก้ไขข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true });
+      }
+    }
   };
 
   useEffect(() => {
@@ -57,7 +70,7 @@ const Bed = ({ bed }) => {
           </Link>
 
           {bed?.bed_status === '0' && (
-            <a href="#" className="text-danger mx-2" onClick={(e) => onDelete(e)}>
+            <a href="#" className="text-danger mx-2" onClick={(e) => onDelete(e, bed.bed_id)}>
               <i className="fas fa-trash-alt"></i>
             </a>
           )}

@@ -26,7 +26,7 @@ const Ward = ({ ward }) => {
           {beds.map(bed => {
             return (
               <div className="col-md-3 col-sm-6 col-12" key={bed.bed_id}>
-                <Bed bed={bed} status="Covid Positive" />
+                <Bed bed={bed} handleDelete={fetchBedsByWard} />
               </div>
             )
           })}

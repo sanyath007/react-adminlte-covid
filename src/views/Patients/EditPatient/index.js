@@ -22,7 +22,6 @@ const EditPatient = () => {
     } catch (error) {
       toast.error('พบข้อผิดพลาด ไม่สามารถแก้ไขข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true });
     }
-
   };
 
   const fetchRegistration = async (_id) => {
