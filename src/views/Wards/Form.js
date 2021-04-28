@@ -170,7 +170,7 @@ const FormWard = ({ ward, handleSubmit }) => {
                         >
                           <option value="">-- เลือก --</option>
                           {buildings && buildings.map(building => (
-                            <option value={building.id}>{building.building_name}</option>
+                            <option key={building.id} value={building.id}>{building.building_name}</option>
                           ))}
                         </BsForm.Control>
                         <ErrorMessage
