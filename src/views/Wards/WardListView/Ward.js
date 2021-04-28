@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import api from '../../../api';
 
-const Ward = ({ ward }) => {
+const Ward = ({ ward, handleDelete }) => {
   const [regises, setRegises] = useState(null);
   const [count, setCount] = useState(0);
 
@@ -14,9 +15,21 @@ const Ward = ({ ward }) => {
     setCount(stays?.length);
   };
 
-  const onDelete = async (e) => {
+  const onDelete = async (e, id) => {
     e.preventDefault();
-    // TODO: to delete ward
+
+    if (window.confirm(`คุณต้องการจะลบข้อมูลวอร์ดรหัส ${id} ใช่หรือไม่ ?`)) {
+      try {
+        let res = await api.delete(`/api/wards/${id}`);
+  
+        toast.success('ลบข้อมูลวอร์ดเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
+        
+        /** fetch new all wards of ward's building */
+        handleDelete();
+      } catch (error) {
+        toast.error('พบข้อผิดพลาด ไม่สามารถลบข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true });
+      }
+    }
   };
 
   useEffect(() => {
@@ -41,7 +54,7 @@ const Ward = ({ ward }) => {
               <Link to={`/wards/edit/${ward?.ward_id}`} className="text-warning">
                 <i className="fas fa-edit"></i>
               </Link>
-              <a href="#" className="text-danger mx-2" onClick={(e) => onDelete(e)}>
+              <a href="#" className="text-danger mx-2" onClick={(e) => onDelete(e, ward?.ward_id)}>
                 <i className="fas fa-trash-alt"></i>
               </a>
             </div>

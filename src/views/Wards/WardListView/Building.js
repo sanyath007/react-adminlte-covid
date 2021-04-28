@@ -26,7 +26,7 @@ const Building = ({ building }) => {
           {wards && wards.map(ward => {
             return (
               <div className="col-md-6 col-sm-12" key={ward.ward_id}>
-                <Ward ward={ward} />
+                <Ward ward={ward} handleDelete={fetchBuildingWards} />
               </div>
             )
           })}

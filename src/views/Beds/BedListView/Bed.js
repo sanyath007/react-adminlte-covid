@@ -31,12 +31,12 @@ const Bed = ({ bed, handleDelete }) => {
       try {
         let res = await api.delete(`/api/beds/${id}`);
   
-        toast.success('แก้ไขข้อมูลผู้ป่วยเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
+        toast.success('ลบข้อมูลเตียงเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
         
-        /** fetch new all beds of ward */
+        /** fetch new all beds of bed's ward */
         handleDelete();
       } catch (error) {
-        toast.error('พบข้อผิดพลาด ไม่สามารถแก้ไขข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true });
+        toast.error('พบข้อผิดพลาด ไม่สามารถลบข้อมูลได้ !!!', { autoClose: 1000, hideProgressBar: true });
       }
     }
   };
