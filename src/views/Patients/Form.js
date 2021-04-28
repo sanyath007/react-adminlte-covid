@@ -78,7 +78,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
   };
 
   const fetchBedsByWard = async (ward, status=1) => {
-    let res = await api.get(`/api/beds/ward/${ward}/${status}`);
+    let res = await api.get(`/api/wards/${ward}/beds?status=${status}`);
 
     setBeds(res.data);
   };
