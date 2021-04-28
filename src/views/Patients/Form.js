@@ -77,8 +77,11 @@ const FormPatient = ({ patient, handleSubmit }) => {
     setWards(res.data);
   };
 
-  const fetchBedsByWard = async (ward, status=1) => {
-    let res = await api.get(`/api/wards/${ward}/beds?status=${status}`);
+  const fetchBedsByWard = async (ward, status='', orBed=0) => {
+    let url = status === '' 
+              ? `/api/wards/${ward}/beds`
+              : `/api/wards/${ward}/beds?status=${status}&orBed=${orBed}`;
+    let res = await api.get(url);
 
     setBeds(res.data);
   };
@@ -88,7 +91,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
   };
 
   useEffect(() => {
-    if (patient) fetchBedsByWard(patient?.ward, 0);
+    if (patient) fetchBedsByWard(patient?.ward, 0, patient?.bed?.bed_id);
 
     fetchWards();
   }, [patient]);
@@ -388,7 +391,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                           value={formik.values.ward}
                           onChange={(e) => {
                             formik.handleChange(e);
-                            fetchBedsByWard(e.target.value);
+                            fetchBedsByWard(e.target.value, 0);
                           }}
                           isInvalid={formik.errors.ward && formik.touched.ward}
                         >
