@@ -18,7 +18,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   console.log(`${exp * 1000}, ${now.getTime()}`);
   // TODO: if token expired have to clear localStorage and auth data in store 
   if (isExpired) {
-    toast.error("Your access token has expired.");
+    toast.error("Your access token has expired.", { autoClose: 1000, hideProgressBar: true });
 
   //   store.dispatch(logout(history));
   }

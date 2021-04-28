@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import Bed from './Ward';
+import Ward from './Ward';
 import api from '../../../api';
 
-const Ward = ({ ward }) => {
-  const [beds, setBeds] = useState([]);
+const Building = ({ building }) => {
+  const [wards, setWards] = useState([]);
 
-  const fetchBedsByWard = async () => {
-    let res = await api.get(`/api/wards/${ward.ward_id}/beds?status=0`);
+  const fetchBuildingWards = async () => {
+    let res = await api.get(`/api/buildings/${building.id}/wards`);
 
-    setBeds(res.data);
+    setWards(res.data.wards);
   };
 
   useEffect(() => {
-    fetchBedsByWard();
+    fetchBuildingWards();
   }, []);
 
   return (
     <div className="card card-primary">
       <div className="card-header">
-        <h3 className="card-title">{ward.ward_name}</h3>
+        <h3 className="card-title">{building?.building_name}</h3>
       </div>
       <div className="card-body">
         <div className="row">
 
-          {beds.map(bed => {
+          {wards && wards.map(ward => {
             return (
-              <div className="col-md-3 col-sm-6 col-12" key={bed.bed_id}>
-                <Bed bed={bed} status="Covid Positive" />
+              <div className="col-md-6 col-sm-12" key={ward.ward_id}>
+                <Ward ward={ward} />
               </div>
             )
           })}
@@ -40,4 +40,4 @@ const Ward = ({ ward }) => {
   );
 };
 
-export default Ward;
+export default Building;

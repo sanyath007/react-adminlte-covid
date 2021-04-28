@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form as BsForm } from 'react-bootstrap';
-import Ward from './Ward';
+import Building from './Building';
 import api from '../../../api';
 
 const WardListView = () => {
-  const [wards, setWards] = useState([]);
+  const [buildings, setBuildings] = useState([]);
 
-  const fetchWards = async () => {
-    let res = await api.get('/api/wards');
+  const fetchBuildings = async () => {
+    let res = await api.get('/api/buildings');
 
-    setWards(res.data);
+    setBuildings(res.data);
   };
 
   useEffect(() => {
-    fetchWards();
+    fetchBuildings();
   }, []);
 
   return (
@@ -51,7 +51,7 @@ const WardListView = () => {
               </div>
             </div>
             <div className="card-body">
-              {wards.map(ward => <Ward key={ward.ward_id} ward={ward} />)}
+              {buildings.map(building => <Building key={building.id} building={building} />)}
             </div>
           </div>
 
