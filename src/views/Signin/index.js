@@ -47,13 +47,13 @@ const Signin = () => {
         return (
           <div className="login-box">
             <div className="login-logo">
-              <a href="../../index2.html"><b>Admin</b>LTE</a>
+              <a href="../../index2.html"><b>Covid19 Bed</b>MS</a>
             </div>
 
             {/* /.login-logo */}
             <div className="card">
               <div className="card-body login-card-body">
-                <p className="login-box-msg">Sign in to start your session</p>
+                <p className="login-box-msg">ลงชื่อเข้าใช้งานระบบ (ผู้ใช้ HOSxP)</p>
 
                 <Form>
                   <div className="input-group mb-3">
@@ -101,12 +101,12 @@ const Signin = () => {
                       <div className="icheck-primary">
                         <input type="checkbox" id="remember" />
                         <label htmlFor="remember">
-                          Remember Me
+                          จำข้อมูลล็อกอิน
                         </label>
                       </div>
                     </div>
                     <div className="col-4">
-                      <button type="submit" className="btn btn-primary btn-block">Sign In</button>
+                      <button type="submit" className="btn btn-primary btn-block">ล็อกอิน</button>
                     </div>
                   </div>
                 </Form>
@@ -122,12 +122,12 @@ const Signin = () => {
                   </a>
                 </div> */}
 
-                <p className="mb-1">
+                {/* <p className="mb-1">
                   <a href="forgot-password.html">I forgot my password</a>
                 </p>
                 <p className="mb-0">
                   <a href="register.html" className="text-center">Register a new membership</a>
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
