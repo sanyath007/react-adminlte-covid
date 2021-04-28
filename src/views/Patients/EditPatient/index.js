@@ -11,10 +11,10 @@ const EditPatient = () => {
   const [patient, setPatient] = useState(null);
 
   const handleSubmit = async (data) => {
-    console.log(data);
+    let { id, ...reg } = data;
 
     try {
-      let res = await api.put(`/patients/${data.id}`, data);
+      let res = await api.put(`/api/registrations/${id}`, reg);
 
       toast.success('แก้ไขข้อมูลผู้ป่วยเรียบร้อยแล้ว !!!', { autoClose: 1000, hideProgressBar: true });
 

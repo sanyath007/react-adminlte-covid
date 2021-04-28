@@ -101,7 +101,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
     <Formik
       enableReinitialize={patient}
       initialValues={{
-        id: patient ? patient?.patient?.id : '',
         hn: patient ? patient?.patient?.hn : '',
         cid: patient ? patient?.patient?.cid : '',
         name: patient ? patient?.patient?.name : '',
@@ -109,13 +108,14 @@ const FormPatient = ({ patient, handleSubmit }) => {
         age_y: patient ? patient?.patient?.age_y : '',
         birthdate: patient ? patient?.patient?.birthdate : moment().format('YYYY-MM-DD'),
         tel: patient ? patient?.patient?.tel : '',
+        id: patient ? patient?.patient?.id : '',
         an: patient ? patient?.an : '',
         code: patient?.code || '',
         reg_date: patient ? patient?.reg_date : moment().format('YYYY-MM-DD'),
         ward: patient ? patient?.ward : '',
         bed: patient ? parseInt(patient?.bed?.bed_id) : '',
-        // lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
-        // lab_result: patient ? patient.lab_result : '',
+        lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
+        lab_result: patient ? patient.lab_result : '',
         dx: patient ? patient.dx : '',
         symptom: patient ? patient.symptom : '',
         dch_date: patient ? patient.dch_date : '',
@@ -435,45 +435,53 @@ const FormPatient = ({ patient, handleSubmit }) => {
                     </div>
                   </div>
 
-                  {/* <div className="col-sm-4">
-                    <div className="form-group">
-                      <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                          <span className="input-group-text">วันส่ง Lab</span>
+                  {patient?.lab_date && (
+                    <div className="col-sm-6">
+                      <div className="form-group">
+                        <div className="input-group mb-3">
+                          <div className="input-group-prepend">
+                            <span className="input-group-text">วันส่ง Lab</span>
+                          </div>
+                          <BsForm.Control
+                            type="date"
+                            name="lab_date"
+                            value={formik.values.lab_date}
+                            onChange={(e) => formik.setFieldValue('lab_date', e.target.value)}
+                            placeholder="วันส่ง Lab"
+                          />
                         </div>
-                        <BsForm.Control
-                          type="date"
-                          name="lab_date"
-                          value={formik.values.lab_date}
-                          onChange={(e) => formik.setFieldValue('lab_date', e.target.value)}
-                          placeholder="วันส่ง Lab"
-                        />
                       </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="col-sm-8">
-                    <div className="form-group">
-                      <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                          <span className="input-group-text">ผล Lab</span>
+                  {patient?.lab_result && (
+                    <div className="col-sm-6">
+                      <div className="form-group">
+                        <div className="input-group mb-3">
+                          <div className="input-group-prepend">
+                            <span className="input-group-text">ผล Lab</span>
+                          </div>
+                          <BsForm.Control
+                            as="select"
+                            name="lab_result"
+                            value={formik.values.lab_result}
+                            onChange={formik.handleChange}
+                            className="form-control"
+                            placeholder="ผล Lab"
+                            isInvalid={formik.errors.lab_result && formik.touched.lab_result}
+                          >
+                            <option value="">-- เลือก --</option>
+                            <option value="0">Negative</option>
+                            <option value="1">Positive</option>
+                          </BsForm.Control>
+                          <ErrorMessage
+                            name="lab_result"
+                            render={msg => <span className="invalid-feedback">{msg}</span>}
+                          />
                         </div>
-                        <BsForm.Control
-                          type="text"
-                          name="lab_result"
-                          value={formik.values.lab_result}
-                          onChange={formik.handleChange}
-                          className="form-control"
-                          placeholder="ผล Lab"
-                          isInvalid={formik.errors.lab_result && formik.touched.lab_result}
-                        />                        
-                        <ErrorMessage
-                          name="lab_result"
-                          render={msg => <span className="invalid-feedback">{msg}</span>}
-                        />
                       </div>
                     </div>
-                  </div> */}
+                  )}
                   
                   <div className="col-sm-8">
                     <div className="form-group">
