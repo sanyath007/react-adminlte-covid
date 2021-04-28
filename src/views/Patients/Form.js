@@ -65,10 +65,11 @@ const FormPatient = ({ patient, handleSubmit }) => {
     /** Admit info */
     setFieldValue('an', ip.an);
     setFieldValue('reg_date', ip.regdate);
+    setFieldValue('dx', ip.hanstat?.pdx);
     /** Set ward data and fetch bed by ward */
     let ward = mapHWardToWard(ip.ward);
     setFieldValue('ward', ward);
-    fetchBedsByWard(ward);
+    fetchBedsByWard(ward, 0);
   };
 
   const fetchWards = async () => {
@@ -79,8 +80,8 @@ const FormPatient = ({ patient, handleSubmit }) => {
 
   const fetchBedsByWard = async (ward, status='', orBed=0) => {
     let url = status === '' 
-              ? `/api/wards/${ward}/beds`
-              : `/api/wards/${ward}/beds?status=${status}&orBed=${orBed}`;
+                ? `/api/wards/${ward}/beds`
+                : `/api/wards/${ward}/beds?status=${status}&orBed=${orBed}`;
     let res = await api.get(url);
 
     setBeds(res.data);
