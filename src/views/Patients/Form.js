@@ -54,6 +54,11 @@ const FormPatient = ({ patient, handleSubmit }) => {
   };
 
   const handleModalSelectedData = (ip, setFieldValue) => {
+    /** Address text */
+    let address = [`${ip.hpatient?.addrpart},หมู่ ${ip.hpatient?.moopart},`,
+                    `${(ip.hpatient?.road=='') ? '-' : ip.hpatient?.road},`,
+                    `${ip.hpatient.haddress.full_name},${ip.hpatient?.po_code}`].join('\n');
+
     /** Patient info */
     setFieldValue('hn', ip.hn);
     setFieldValue('cid', ip.hpatient?.cid);
@@ -62,6 +67,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     setFieldValue('age_y', calcAge(ip.hpatient?.birthday));
     setFieldValue('sex', ip.hpatient?.sex);
     setFieldValue('tel', ip.hpatient?.hometel);
+    setFieldValue('address', address);
     /** Admit info */
     setFieldValue('an', ip.an);
     setFieldValue('reg_date', ip.regdate);
@@ -109,6 +115,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
         age_y: patient ? patient?.patient?.age_y : '',
         birthdate: patient ? patient?.patient?.birthdate : moment().format('YYYY-MM-DD'),
         tel: patient ? patient?.patient?.tel : '',
+        address: patient ? patient?.patient?.address : '',
         id: patient ? patient?.patient?.id : '',
         an: patient ? patient?.an : '',
         code: patient?.code || '',
@@ -326,6 +333,31 @@ const FormPatient = ({ patient, handleSubmit }) => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="col-sm-12">
+                    <div className="form-group">
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">ที่อยู่</span>
+                        </div>
+                        <BsForm.Control
+                          type="text"
+                          name="address"
+                          value={formik.values.address}
+                          onChange={formik.handleChange}
+                          className="form-control"
+                          placeholder="ที่อยู่"
+                          isInvalid={formik.errors.address && formik.touched.address}
+                          readOnly={patient}
+                        />
+                        <ErrorMessage
+                          name="address"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
                 </div>{/* /.row */}
 
               </div>{/* /.card-body */}
