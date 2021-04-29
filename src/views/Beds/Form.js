@@ -62,7 +62,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                          <span className="input-group-text">เลขที่ห้อง</span>
+                          <span className="input-group-text">เลขที่เตียง</span>
                         </div>
                         <BsForm.Control
                           type="text"
@@ -70,7 +70,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                           value={formik.values.bed_no}
                           onChange={formik.handleChange}
                           isInvalid={formik.errors.bed_no && formik.touched.bed_no}
-                          placeholder="เลขที่ห้อง"
+                          placeholder="เลขที่เตียง"
                         />
                         <ErrorMessage
                           name="bed_no"
@@ -84,7 +84,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                          <span className="input-group-text">ชื่อห้อง</span>
+                          <span className="input-group-text">ชื่อเตียง</span>
                         </div>
                         <BsForm.Control
                           type="text"
@@ -92,7 +92,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                           value={formik.values.bed_name}
                           onChange={formik.handleChange}
                           isInvalid={formik.errors.bed_name && formik.touched.bed_name}
-                          placeholder="เลขที่ห้อง"
+                          placeholder="เลขที่เตียง"
                         />
                         <ErrorMessage
                           name="bed_name"
@@ -132,7 +132,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                          <span className="input-group-text">ประเภทห้อง</span>
+                          <span className="input-group-text">ประเภทเตียง</span>
                         </div>
                         <BsForm.Control
                           as="select"
@@ -175,7 +175,7 @@ const FormBed = ({ bed, handleSubmit, ...rest }) => {
                         name="bed_status"
                         checked={formik.values.bed_status}
                         onChange={(e) => formik.setFieldValue('bed_status', e.target.checked)}
-                        label={`สถานะห้อง (${formik.values.bed_status ? 'ว่าง' : 'ไม่ว่าง'})`}
+                        label={`สถานะเตียง (${formik.values.bed_status ? 'ว่าง' : 'ไม่ว่าง'})`}
                       />
                     </div>{/* /.form-group */}
                   </div>{/* /.col-sm-2 */}
