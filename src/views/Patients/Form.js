@@ -42,7 +42,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     bed: Yup.string().required('กรุณาระบุเตียงก่อน !!!'),
     // lab_result: Yup.string().required('กรุณาระบุผล Lab ก่อน !!!'),
     dx: Yup.string().required('กรุณาระบุผลการวินิจฉัย (Diag) ก่อน !!!'),
-    symptom: Yup.string().required('กรุณาระบุอาการก่อน !!!'),
+    // symptom: Yup.string().required('กรุณาระบุอาการก่อน !!!'),
   });
 
   const [wards, setWards] = useState([]);
@@ -65,6 +65,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     /** Admit info */
     setFieldValue('an', ip.an);
     setFieldValue('reg_date', ip.regdate);
+    setFieldValue('reg_time', ip.retime);
     setFieldValue('dx', ip.hanstat?.pdx);
     /** Set ward data and fetch bed by ward */
     let ward = mapHWardToWard(ip.ward);
@@ -112,6 +113,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
         an: patient ? patient?.an : '',
         code: patient?.code || '',
         reg_date: patient ? patient?.reg_date : moment().format('YYYY-MM-DD'),
+        reg_time: patient ? patient?.reg_time : moment().format('h:mm:ss'),
         ward: patient ? patient?.ward : '',
         bed: patient ? parseInt(patient?.bed?.bed_id) : '',
         lab_date: patient ? patient.lab_date : moment().format('YYYY-MM-DD'),
@@ -384,6 +386,47 @@ const FormPatient = ({ patient, handleSubmit }) => {
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
+                          <span className="input-group-text">เวลา</span>
+                        </div>
+                        <BsForm.Control
+                          type="text"
+                          name="reg_time"
+                          value={formik.values.reg_time}
+                          onChange={(e) => formik.setFieldValue('reg_time', e.target.value)}
+                          placeholder="เวลา"
+                          isInvalid={formik.errors.reg_time && formik.touched.reg_time}
+                          readOnly={patient}
+                        />
+                        <ErrorMessage
+                          name="reg_time"
+                          render={msg => <span className="invalid-feedback">{msg}</span>}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="col-sm-3">
+                    <div className="form-group">
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">Code</span>
+                        </div>
+                        <BsForm.Control
+                          type="text"
+                          name="code"
+                          value={formik.values.code}
+                          onChange={formik.handleChange}
+                          className="form-control"
+                          placeholder="Code"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-3">
+                    <div className="form-group">
+                      <div className="input-group mb-3">
+                        <div className="input-group-prepend">
                           <span className="input-group-text">วอร์ด</span>
                         </div>
                         <BsForm.Control
@@ -483,7 +526,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                     </div>
                   )}
                   
-                  <div className="col-sm-8">
+                  <div className="col-sm-6">
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <div className="input-group-prepend">
@@ -506,24 +549,6 @@ const FormPatient = ({ patient, handleSubmit }) => {
                     </div>
                   </div>
 
-                  <div className="col-sm-4">
-                    <div className="form-group">
-                      <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                          <span className="input-group-text">Code</span>
-                        </div>
-                        <BsForm.Control
-                          type="text"
-                          name="code"
-                          value={formik.values.code}
-                          onChange={formik.handleChange}
-                          className="form-control"
-                          placeholder="Code"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
                   <div className="col-sm-6">
                     <div className="form-group">
                       <div className="input-group mb-3">
