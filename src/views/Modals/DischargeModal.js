@@ -90,10 +90,11 @@ function DischargeModal({ isOpen, hideModal, onSubmit, data }) {
                             isInvalid={formik.errors.dch_type && formik.touched.dch_type}
                           >
                             <option value="">-- เลือก --</option>
-                            <option value="1">หาย</option>
+                            <option value="1">หาย/ดีขึ้น</option>
                             <option value="2">หนี</option>
-                            <option value="3">ส่งต่อ</option>
+                            <option value="3">ส่งต่อ (Refer)</option>
                             <option value="4">เสียชีวิต</option>
+                            <option value="5">ย้ายวอร์ด</option>
                             <option value="9">อื่นๆ</option>
                           </BsForm.Control>
                           <ErrorMessage
