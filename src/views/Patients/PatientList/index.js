@@ -15,6 +15,7 @@ const PatientList = () => {
   const [dischargeData, setDischargeData] = useState({});
   const [openLabResultModal, setOpenLabResultModal] = useState(false);
   const [labData, setLabData] = useState({});
+  const [showWard, setShowWard] = useState('');
   const [showAll, setShowAll] = useState(false);
 
   const fetchRegistrations = async (ward='', showall='1') => {
@@ -115,6 +116,7 @@ const PatientList = () => {
 
       <div className="card-header">
         <div className="row">
+          {/* // TODO: move filter tool to separated component */}
           <div className="col-md-8">
             {/* // TODO: use css class to define style to wrapper div tag */}
             <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -126,8 +128,13 @@ const PatientList = () => {
                   {/* // TODO: get ward data from db */}
                   <BsForm.Control
                     as="select"
-                    name="dch_type"
-                    onChange={(e) => fetchRegistrations(e.target.value)}
+                    name="ward"
+                    value={showWard}
+                    onChange={(e) => {
+                      let checked = showAll ? 0 : 1;
+                      setShowWard(e.target.value)
+                      fetchRegistrations(e.target.value, checked)
+                    }}
                   >
                     <option value="">-- เลือก --</option>
                     <option value="1">วอร์ดพิเศษชั้น 1</option>
@@ -141,12 +148,12 @@ const PatientList = () => {
                 <BsForm.Check
                   type="checkbox"
                   id="showAll"
-                  label="แสดงทั้งหมด"
+                  label="แสดงผู้ป่วยที่ D/C แล้ว"
                   checked={showAll}
                   onChange={(e) => {
                     let checked = e.target.checked ? 0 : 1;
                     setShowAll(e.target.checked);
-                    fetchRegistrations('', checked);
+                    fetchRegistrations(showWard, checked);
                   }}
                 />
               </div>
@@ -160,27 +167,28 @@ const PatientList = () => {
         </div>
       </div>
       <div className="card-body p-0">
-        <table className="table table-striped">
+        <table className="table table-bordered table-striped">
           <thead>
             <tr style={{ fontSize: '14px' }}>
-              <th style={{ width: '4%', textAlign: 'center' }}>#</th>
-              <th style={{ width: '10%', textAlign: 'center' }}>Code</th>
-              <th style={{ width: '8%', textAlign: 'center' }}>HN</th>
+              <th style={{ width: '3%', textAlign: 'center' }}>#</th>
+              <th style={{ width: '10%', textAlign: 'center' }}>SAT Code</th>
+              <th style={{ width: '6%', textAlign: 'center' }}>AN</th>
+              <th style={{ width: '5%', textAlign: 'center' }}>HN</th>
               <th>ชื่อ-สกุล</th>
-              <th style={{ width: '5%', textAlign: 'center' }}>เพศ</th>
-              <th style={{ width: '5%', textAlign: 'center' }}>อายุ (ปี)</th>
+              <th style={{ width: '4%', textAlign: 'center' }}>เพศ</th>
+              <th style={{ width: '4%', textAlign: 'center' }}>อายุ (ปี)</th>
               <th style={{ width: '8%', textAlign: 'center' }}>วันที่ Admit</th>
               {/* <th style={{ width: '8%', textAlign: 'center' }}>วันที่ส่ง Lab</th> */}
               {/* <th style={{ width: '6%', textAlign: 'center' }}>ผล Lab</th> */}
-              <th style={{ width: '15%', textAlign: 'center' }}>วอร์ด</th>
-              <th style={{ width: '6%', textAlign: 'center' }}>Lab</th>
+              <th style={{ width: '12%', textAlign: 'center' }}>วอร์ด</th>
+              <th style={{ width: '3%', textAlign: 'center' }}>Lab</th>
               {/* <th style={{ width: '6%', textAlign: 'center' }}>Dx</th> */}
               {/* <th>อาการโดยรวม</th> */}
               <th style={{ width: '8%', textAlign: 'center' }}>สถานะ</th>
               <th style={{ width: '8%', textAlign: 'center' }}>D/C</th>
               {/* <th style={{ width: '6%', textAlign: 'center' }}>จน.วันนอน</th> */}
               {/* <th>หมายเหตุ</th> */}
-              <th style={{ width: '10%', textAlign: 'center' }}>Actions</th>
+              <th style={{ width: '8%', textAlign: 'center' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -189,6 +197,7 @@ const PatientList = () => {
                 <tr key={reg.hn}>
                   <td style={{ textAlign: 'center' }}>{(pager?.from + index).toString()}</td>
                   <td style={{ textAlign: 'center' }}>{reg.code}</td>
+                  <td style={{ textAlign: 'center' }}>{reg.an}</td>
                   <td style={{ textAlign: 'center' }}>{reg.hn}</td>
                   <td style={{ fontSize: '14px' }}>{reg.patient?.name}</td>
                   <td style={{ textAlign: 'center' }}>{reg.patient?.sex ? 'ชาย' : 'หญิง'}</td>
