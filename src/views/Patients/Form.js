@@ -581,12 +581,11 @@ const FormPatient = ({ patient, handleSubmit }) => {
                       <label>อาการ</label>
                       <BsForm.Control
                         as="textarea"
-                        rows="4"
+                        rows="6"
                         name="symptom"
                         value={formik.values.symptom}
                         onChange={formik.handleChange}
                         className="form-control"
-                        rows="3"
                         placeholder="อาการ"
                         isInvalid={formik.errors.symptom && formik.touched.symptom}
                       />
@@ -601,12 +600,11 @@ const FormPatient = ({ patient, handleSubmit }) => {
                       <label>หมายเหตุ</label>
                       <BsForm.Control
                         as="textarea"
-                        rows="4"
+                        rows="6"
                         name="remark"
                         value={formik.values.remark}
                         onChange={formik.handleChange}
                         className="form-control"
-                        rows="3"
                         placeholder="หมายเหตุ"
                       />
                     </div>
