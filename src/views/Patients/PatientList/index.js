@@ -15,9 +15,10 @@ const PatientList = () => {
   const [dischargeData, setDischargeData] = useState({});
   const [openLabResultModal, setOpenLabResultModal] = useState(false);
   const [labData, setLabData] = useState({});
+  const [showAll, setShowAll] = useState(false);
 
-  const fetchRegistrations = async (qs='1') => {
-    let res = await api.get(`/api/patients?dchdate=${qs}`);
+  const fetchRegistrations = async (ward='', showall='1') => {
+    let res = await api.get(`/api/patients?dchdate=${showall}&ward=${ward}`);
 
     setRegistrations(res.data.items);
     setPager(res.data.pager);
@@ -97,14 +98,14 @@ const PatientList = () => {
 
   return (
     <div className="card">
-      
+
       <DischargeModal
         data={dischargeData}
         isOpen={openDchModal}
         hideModal={() => setOpenDchModal(false)}
         onSubmit={onDischarge}
       />
-      
+
       <LabResultModal
         isOpen={openLabResultModal}
         hideModal={() => setOpenLabResultModal(false)}
@@ -114,25 +115,46 @@ const PatientList = () => {
 
       <div className="card-header">
         <div className="row">
-          <div className="col-md-6">
-            <div className="form-group col-md-8 mb-0 pl-0">
-              <div className="input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">กรองข้อมูล</span>
+          <div className="col-md-8">
+            {/* // TODO: use css class to define style to wrapper div tag */}
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div className="form-group col-md-6 mb-0 pl-0">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">วอร์ด</span>
+                  </div>
+                  {/* // TODO: get ward data from db */}
+                  <BsForm.Control
+                    as="select"
+                    name="dch_type"
+                    onChange={(e) => fetchRegistrations(e.target.value)}
+                  >
+                    <option value="">-- เลือก --</option>
+                    <option value="1">วอร์ดพิเศษชั้น 1</option>
+                    <option value="2">วอร์ดชั้น 10</option>
+                    <option value="3">วอร์ด ICU</option>
+                  </BsForm.Control>
                 </div>
-                <BsForm.Control
-                  as="select"
-                  name="dch_type"
-                  onChange={(e) => fetchRegistrations(e.target.value)}
-                >
-                  <option value="1">แสดงเฉพาะที่ยังรักษาอยู่</option>
-                  <option value="0">แสดงทั้งหมด</option>
-                </BsForm.Control>
-              </div>
-            </div>{/* /.form-group */}
-          </div>
+              </div>{/* /.form-group */}
 
-          <div className="col-md-6">
+              <div className="form-group col-md-6 my-auto">
+                <BsForm.Check
+                  type="checkbox"
+                  id="showAll"
+                  label="แสดงทั้งหมด"
+                  checked={showAll}
+                  onChange={(e) => {
+                    let checked = e.target.checked ? 0 : 1;
+                    setShowAll(e.target.checked);
+                    fetchRegistrations('', checked);
+                  }}
+                />
+              </div>
+            </div>
+
+          </div>{/* /.col */}
+
+          <div className="col-md-4">
             <Link to="/patients/new" className="btn btn-md bg-primary float-right">เพิ่มผู้ป่วย</Link>
           </div>
         </div>
@@ -155,7 +177,7 @@ const PatientList = () => {
               {/* <th style={{ width: '6%', textAlign: 'center' }}>Dx</th> */}
               {/* <th>อาการโดยรวม</th> */}
               <th style={{ width: '8%', textAlign: 'center' }}>สถานะ</th>
-              <th style={{ width: '8%', textAlign: 'center' }}>วันที่ D/C</th>
+              <th style={{ width: '8%', textAlign: 'center' }}>D/C</th>
               {/* <th style={{ width: '6%', textAlign: 'center' }}>จน.วันนอน</th> */}
               {/* <th>หมายเหตุ</th> */}
               <th style={{ width: '10%', textAlign: 'center' }}>Actions</th>
