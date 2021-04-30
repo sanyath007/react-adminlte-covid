@@ -6,11 +6,18 @@ import api from '../../../api';
 
 const WardListView = () => {
   const [buildings, setBuildings] = useState([]);
+  const [buildingLists, setBuildingLists] = useState([]);
 
-  const fetchBuildings = async () => {
+  const fetchBuildings = async (building='') => {
     let res = await api.get('/api/buildings');
 
-    setBuildings(res.data);
+    setBuildingLists(res.data);
+    
+    if (building === '') {
+      setBuildings(res.data);
+    } else {
+      setBuildings(res.data.filter(b => b.id === parseInt(building)));
+    }
   };
 
   useEffect(() => {
@@ -29,17 +36,17 @@ const WardListView = () => {
                   <div className="form-group col-md-8 mb-0 pl-0">
                     <div className="input-group">
                       <div className="input-group-prepend">
-                        <span className="input-group-text">วอร์ด</span>
+                        <span className="input-group-text">อาคาร</span>
                       </div>
                       <BsForm.Control
                         as="select"
-                        name="ward"
-                        onChange={(e) => console.log(e.target.value)}
+                        name="building"
+                        onChange={(e) => fetchBuildings(e.target.value)}
                       >
                         <option value="">แสดงทั้งหมด</option>
-                        <option value="06">วอร์ดชั้น 1</option>
-                        <option value="00">วอร์ดชั้น 10</option>
-                        <option value="05">วอร์ดชั้น ICU</option>
+                        {buildingLists && buildingLists.map(b => (
+                          <option key={b.id} value={b.id}>{b.building_name}</option>
+                        ))}
                       </BsForm.Control>
                     </div>
                   </div>{/* /.form-group */}
