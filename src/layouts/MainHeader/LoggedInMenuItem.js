@@ -1,28 +1,28 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { logout } from '../../features/auth';
+import * as authService from '../../features/auth';
 
 const LoggedInMenuItem = ({ user }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
-
-  const onLogout = (e) => {
-    e.preventDefault();
-
-    dispatch(logout(history))
-  };
 
   return (
     <li className="nav-item dropdown user-menu">
       <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">
-        <img src={`${process.env.PUBLIC_URL}/img/user2-160x160.jpg`} className="user-image img-circle elevation-2" alt="User Image" />
+        <img
+          src={`${process.env.PUBLIC_URL}/img/user2-160x160.jpg`}
+          className="user-image img-circle elevation-2"
+          alt="User Image"
+        />
         <span className="d-none d-md-inline">{user?.username}</span>
       </a>
       <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           {/* User image */}
           <li className="user-header bg-primary">
-            <img src={`${process.env.PUBLIC_URL}/img/user2-160x160.jpg`} className="img-circle elevation-2" alt="User Image" />
+            <img
+              src={`${process.env.PUBLIC_URL}/img/user2-160x160.jpg`}
+              className="img-circle elevation-2"
+              alt="User Image"
+            />
 
             <p>
             {user?.name}<br />
@@ -54,7 +54,7 @@ const LoggedInMenuItem = ({ user }) => {
             </a>
             <a 
               href="#"
-              onClick={(e) => onLogout(e)}
+              onClick={() => dispatch(authService.logout())}
               className="btn btn-default btn-flat float-right"
             >
               Sign out

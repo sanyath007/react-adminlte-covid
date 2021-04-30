@@ -1,13 +1,9 @@
 import React from 'react';
-import { Redirect, Route, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import jwt from 'jwt-decode';
+import { Redirect, Route } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { logout } from '../features/auth';
+import jwt from 'jwt-decode';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
   const now = new Date();
   const exp = localStorage.getItem('access_token')
     ? jwt(JSON.parse(localStorage.getItem('access_token')))?.exp
@@ -21,13 +17,17 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   if (isExpired) {
     toast.error("Your access token has expired.", { autoClose: 1000, hideProgressBar: true });
 
-    dispatch(logout(history));
+    localStorage.removeItem('access_token');
   }
 
   return (
       <Route
         {...rest}
-        render={(props) => !isExpired && <Component {...props} />}
+        render={(props) => (
+          !isExpired
+            ? <Component {...props} />
+            : <Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+        )}
       />
   );
 };

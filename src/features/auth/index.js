@@ -48,11 +48,9 @@ export const login = (data, history) => async (dispatch) => {
   }
 };
 
-export const logout = (history) => async (dispatch) => {
+export const logout = () => async (dispatch) => {
   try {
     dispatch(logoutSucces());
-
-    history.push('/signin');
   } catch (error) {
     console.log(error);
   }
