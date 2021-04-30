@@ -8,7 +8,7 @@ const Ward = ({ ward }) => {
   const fetchBedsByWard = async () => {
     let res = await api.get(`/api/wards/${ward.ward_id}/beds`);
 
-    setBeds(res.data);
+    setBeds(res.data.beds);
   };
 
   useEffect(() => {
@@ -23,18 +23,15 @@ const Ward = ({ ward }) => {
       <div className="card-body">
         <div className="row">
 
-          {beds.map(bed => {
+          {beds && beds.map(bed => {
             return (
               <div className="col-md-3 col-sm-6 col-12" key={bed.bed_id}>
-                <Bed bed={bed} handleDelete={fetchBedsByWard} />
+                <Bed bed={bed} used={bed.regis} handleDelete={fetchBedsByWard} />
               </div>
             )
           })}
 
         </div>
-      </div>
-      <div className="card-footer">
-        {/* <button type="submit" className="btn btn-primary">Submit</button> */}
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ function RegisDetailModal({ isOpen, hideModal, regisData }) {
                 {moment(regisData?.reg_date).format('DD/MM/YYYY')}
               </td>
               <th>วอร์ด</th>
-              <td>{regisData?.bed?.bed_name}</td>
+              <td>{regisData?.ward?.ward_name}</td>
             </tr>
             <tr>
               <th>วันที่ส่ง Lab</th>

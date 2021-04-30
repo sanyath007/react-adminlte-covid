@@ -12,17 +12,9 @@ const regStates = [
   { id: 4, name: 'สงสัย' },
 ];
 
-const Bed = ({ bed, handleDelete }) => {
+const Bed = ({ bed, used, handleDelete }) => {  
   const [status, setStatus] = useState(null);
-  const [used, setUsed] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-
-  const fetchBedUsed = async () => {
-    let res = await api.get(`/api/beds/${bed?.bed_id}/used`);
-    
-    setUsed(res.data.used)
-    setStatus(regStates.find(state => state.id.toString() === res.data.used?.reg_state));
-  };
 
   const onDelete = async (e, id) => {
     e.preventDefault();
@@ -42,7 +34,7 @@ const Bed = ({ bed, handleDelete }) => {
   };
 
   useEffect(() => {
-    fetchBedUsed();
+    setStatus(regStates[used?.reg_state]);
   }, [bed]);
 
   return (
