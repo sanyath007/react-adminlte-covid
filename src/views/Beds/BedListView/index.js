@@ -6,9 +6,12 @@ import api from '../../../api';
 
 const BedListView = () => {
   const [wards, setWards] = useState([]);
+  const [wardLists, setWardLists] = useState([]);
 
   const fetchWards = async (ward='') => {
     let res = await api.get('/api/wards');
+
+    setWardLists(res.data);
 
     if (ward === '') { 
       setWards(res.data);
@@ -41,9 +44,9 @@ const BedListView = () => {
                         onChange={(e) => fetchWards(e.target.value)}
                       >
                         <option value="">แสดงทั้งหมด</option>
-                        <option value="1">วอร์ดชั้น 1</option>
-                        <option value="2">วอร์ดชั้น 10</option>
-                        <option value="3">วอร์ดชั้น ICU</option>
+                        {wardLists && wardLists.map(w => (
+                          <option key={w.ward_id} value={w.ward_id}>{w.ward_name}</option>
+                        ))}
                       </BsForm.Control>
                     </div>
                   </div>{/* /.form-group */}
