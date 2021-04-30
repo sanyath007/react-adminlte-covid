@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './components/PrivateRoute';
 import MainLayout from './layouts/MainLayout';
 import Signin from './views/Signin';
 import Signup from './views/Signup';
