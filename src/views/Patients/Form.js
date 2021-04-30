@@ -75,6 +75,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     setFieldValue('dx', ip.hanstat?.pdx);
     /** Set ward data and fetch bed by ward */
     let ward = mapHWardToWard(ip.ward);
+
     setFieldValue('ward', ward);
     fetchBedsByWard(ward, 0);
   };
@@ -91,7 +92,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
                 : `/api/wards/${ward}/beds?status=${status}&orBed=${orBed}`;
     let res = await api.get(url);
 
-    setBeds(res.data);
+    setBeds(res.data.beds);
   };
 
   const onSubmit = (values, props) => {
