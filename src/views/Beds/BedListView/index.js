@@ -7,10 +7,14 @@ import api from '../../../api';
 const BedListView = () => {
   const [wards, setWards] = useState([]);
 
-  const fetchWards = async () => {
+  const fetchWards = async (ward='') => {
     let res = await api.get('/api/wards');
 
-    setWards(res.data);
+    if (ward === '') { 
+      setWards(res.data);
+    } else {
+      setWards(res.data.filter(w => w.ward_id === parseInt(ward)));
+    }
   };
 
   useEffect(() => {
@@ -34,12 +38,12 @@ const BedListView = () => {
                       <BsForm.Control
                         as="select"
                         name="ward"
-                        onChange={(e) => console.log(e.target.value)}
+                        onChange={(e) => fetchWards(e.target.value)}
                       >
                         <option value="">แสดงทั้งหมด</option>
-                        <option value="06">วอร์ดชั้น 1</option>
-                        <option value="00">วอร์ดชั้น 10</option>
-                        <option value="05">วอร์ดชั้น ICU</option>
+                        <option value="1">วอร์ดชั้น 1</option>
+                        <option value="2">วอร์ดชั้น 10</option>
+                        <option value="3">วอร์ดชั้น ICU</option>
                       </BsForm.Control>
                     </div>
                   </div>{/* /.form-group */}
