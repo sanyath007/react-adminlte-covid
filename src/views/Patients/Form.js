@@ -71,7 +71,7 @@ const FormPatient = ({ patient, handleSubmit }) => {
     /** Admit info */
     setFieldValue('an', ip.an);
     setFieldValue('reg_date', ip.regdate);
-    setFieldValue('reg_time', ip.retime);
+    setFieldValue('reg_time', ip.regtime);
     setFieldValue('dx', ip.hanstat?.pdx);
     /** Set ward data and fetch bed by ward */
     let ward = mapHWardToWard(ip.ward);
