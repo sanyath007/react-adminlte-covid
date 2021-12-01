@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LoggedInMenuItem from './LoggedInMenuItem';
 import { useSelector } from 'react-redux';
-import NotificationsMenuItem from './NotificationsMenuItem';
-import MessagesMenuItem from './MessagesMenuItem';
 import SearchFormMenu from './SearchFormMenu';
+import MessagesMenuItem from './MessagesMenuItem';
+import NotificationsMenuItem from './NotificationsMenuItem';
+import LoggedInMenuItem from './LoggedInMenuItem';
 
 const MainHeader = () => {
   const { auth } = useSelector(state => state.auth);
